@@ -51,5 +51,23 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             $handler->load(__DIR__ . "/TestConfig/MissingPhpConfig.php"),
             ConfigHandler::CONFIG_PARSE_ERROR
         );
+
+        return $handler;
+    }
+
+    /**
+     * Test the 'set' method
+     *
+     * Ensure that we can add, and overwrite configuration values, after they
+     * have been loaded from configuration resource(s), and that the 'set'
+     * method will respond with false, when the key is not a string value.
+     *
+     * @depends testLoad
+     */
+    public function testSet($handler)
+    {
+        $this->assertTrue($handler->set("test.config.overwrite", "overwritten"));
+        $this->assertTrue($handler->set("test.config.write", true));
+        $this->assertFalse($handler->set(false, "error"));
     }
 }

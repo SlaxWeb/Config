@@ -51,4 +51,23 @@ class PhpConfigHandler implements ConfigHandlerInterface
         $this->_configValues = array_merge($this->_configValues, $configuration);
         return static::CONFIG_LOADED;
     }
+
+    /**
+     * Set config item
+     *
+     * Set a new config item, ro overwrite an existing item.
+     *
+     * @param string $key Config item key
+     * @param mixed $value Config item value
+     * @return bool
+     */
+    public function set($key, $value)
+    {
+        if (is_string($key) === false) {
+            return false;
+        }
+
+        $this->_configValues[$key] = $value;
+        return true;
+    }
 }

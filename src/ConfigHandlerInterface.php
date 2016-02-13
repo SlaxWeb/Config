@@ -39,4 +39,15 @@ interface ConfigHandlerInterface
      * @return int
      */
     public function load($config);
+
+    /**
+     * Set config item
+     *
+     * Set a new config item, ro overwrite an existing item.
+     *
+     * @param string $key Config item key
+     * @param mixed $value Config item value
+     * @return bool
+     */
+    public function set($key, $value);
 }
