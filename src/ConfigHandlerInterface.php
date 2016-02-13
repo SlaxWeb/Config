@@ -61,4 +61,14 @@ interface ConfigHandlerInterface
      * @return mixed
      */
     public function get($key);
+
+    /**
+     * Remove config item
+     *
+     * Check if an item with provided key exists, and remove it.
+     *
+     * @param string $key Config item key
+     * @return bool
+     */
+    public function remove($key);
 }
