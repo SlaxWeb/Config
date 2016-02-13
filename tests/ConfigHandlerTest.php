@@ -13,8 +13,6 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\PhpConfigHandler as ConfigHandler;
-
 class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
 {
     /**
