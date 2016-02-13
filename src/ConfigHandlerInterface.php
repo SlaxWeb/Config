@@ -50,4 +50,15 @@ interface ConfigHandlerInterface
      * @return bool
      */
     public function set($key, $value);
+
+    /**
+     * Get config item
+     *
+     * Get a config item from the internal config container. On a missing key,
+     * return null.
+     *
+     * @param string $key Config item key
+     * @return mixed
+     */
+    public function get($key);
 }
