@@ -69,5 +69,27 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($handler->set("test.config.overwrite", "overwritten"));
         $this->assertTrue($handler->set("test.config.write", true));
         $this->assertFalse($handler->set(false, "error"));
+
+        return $handler;
+    }
+
+    /**
+     * Test the 'get' method
+     *
+     * Ensure that we can get the propper values from the config, and that the
+     * configuration values were properly set by the 'set' method. On a missing
+     * key, a null value must be returned.
+     *
+     * @depends testSet
+     */
+    public function testGet($handler)
+    {
+        $this->assertEquals($handler->get("test.config"), "test");
+        $this->assertEquals(
+            $handler->get("test.config.overwrite"),
+            "overwritten"
+        );
+        $this->assertEquals($handler->get("test.config.write"), true);
+        $this->assertEquals($handler->get("test.config.missing"), null);
     }
 }

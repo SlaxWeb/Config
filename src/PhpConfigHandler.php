@@ -70,4 +70,20 @@ class PhpConfigHandler implements ConfigHandlerInterface
         $this->_configValues[$key] = $value;
         return true;
     }
+
+    /**
+     * Get config item
+     *
+     * Get a config item from the internal config container. On a missing key,
+     * return null.
+     *
+     * @param string $key Config item key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return isset($this->_configValues[$key])
+            ? $this->_configValues[$key]
+            : null;
+    }
 }
