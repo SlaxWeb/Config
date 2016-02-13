@@ -14,15 +14,8 @@
  */
 namespace SlaxWeb;
 
-class PhpConfigHandler implements ConfigHandlerInterface
+class PhpConfigHandler extends ConfigHandler
 {
-    /**
-     * Configuration values
-     *
-     * @var array
-     */
-    protected $_configValues = [];
-
     /**
      * Load the Config File
      *
@@ -50,58 +43,5 @@ class PhpConfigHandler implements ConfigHandlerInterface
 
         $this->_configValues = array_merge($this->_configValues, $configuration);
         return static::CONFIG_LOADED;
-    }
-
-    /**
-     * Set config item
-     *
-     * Set a new config item, ro overwrite an existing item.
-     *
-     * @param string $key Config item key
-     * @param mixed $value Config item value
-     * @return bool
-     */
-    public function set($key, $value)
-    {
-        if (is_string($key) === false) {
-            return false;
-        }
-
-        $this->_configValues[$key] = $value;
-        return true;
-    }
-
-    /**
-     * Get config item
-     *
-     * Get a config item from the internal config container. On a missing key,
-     * return null.
-     *
-     * @param string $key Config item key
-     * @return mixed
-     */
-    public function get($key)
-    {
-        return isset($this->_configValues[$key])
-            ? $this->_configValues[$key]
-            : null;
-    }
-
-    /**
-     * Remove config item
-     *
-     * Check if an item with provided key exists, and remove it.
-     *
-     * @param string $key Config item key
-     * @return bool
-     */
-    public function remove($key)
-    {
-        if (isset($this->_configValues[$key]) === false) {
-            return false;
-        }
-
-        unset($this->_configValues[$key]);
-        return true;
     }
 }
