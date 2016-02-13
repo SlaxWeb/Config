@@ -1,10 +1,10 @@
 <?php
 /**
- * Config Handler Abstract Class
+ * Config Handler Bastract Interface
  *
- * Provides functionality for retrieval, setting, and removing of config items,
- * as well as defines an abstract method for loading of config items from a
- * resource, and parsing them to the internal container.
+ * Interface for the Config Handlers. All Config handlers must implement this
+ * interface to be accepted by the main Config class. Normally the Config
+ * Handler already implements this interface.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -15,14 +15,20 @@
  */
 namespace SlaxWeb;
 
-abstract class ConfigHandler implements ConfigHandlerInterface
+interface ConfigHandlerInterface
 {
     /**
-     * Configuration values
-     *
-     * @var array
+     * Config was loaded and parsed successfuly
      */
-    protected $_configValues = [];
+    const CONFIG_LOADED = 100;
+    /**
+     * Config resource could not be found
+     */
+    const CONFIG_RESOURCE_NOT_FOUND = 101;
+    /**
+     * Config resource was found, but an error occured while parsing
+     */
+    const CONFIG_PARSE_ERROR = 102;
 
     /**
      * Load the config
@@ -33,7 +39,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $config Path to the config resource
      * @return int
      */
-    abstract public function load($config);
+    public function load($config);
 
     /**
      * Set config item
@@ -44,15 +50,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param mixed $value Config item value
      * @return bool
      */
-    public function set($key, $value)
-    {
-        if (is_string($key) === false) {
-            return false;
-        }
-
-        $this->_configValues[$key] = $value;
-        return true;
-    }
+    public function set($key, $value);
 
     /**
      * Get config item
@@ -63,12 +61,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $key Config item key
      * @return mixed
      */
-    public function get($key)
-    {
-        return isset($this->_configValues[$key])
-            ? $this->_configValues[$key]
-            : null;
-    }
+    public function get($key);
 
     /**
      * Remove config item
@@ -78,15 +71,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $key Config item key
      * @return bool
      */
-    public function remove($key)
-    {
-        if (isset($this->_configValues[$key]) === false) {
-            return false;
-        }
-
-        unset($this->_configValues[$key]);
-        return true;
-    }
+    public function remove($key);
 
     /**
      * Check config item exists
@@ -96,8 +81,5 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $key Config item key
      * @return bool
      */
-    public function exists($key)
-    {
-        return isset($this->_configValues[$key]);
-    }
+    public function exists($key);
 }
