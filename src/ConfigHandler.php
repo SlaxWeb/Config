@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP Config Handler Interface
+ * Config Handler Abstract Class
  *
  * Provides functionality for retrieval, setting, and removing of config items,
  * as well as defines an abstract method for loading of config items from a
