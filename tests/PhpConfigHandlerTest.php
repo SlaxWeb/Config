@@ -91,5 +91,22 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($handler->get("test.config.write"), true);
         $this->assertEquals($handler->get("test.config.missing"), null);
+
+        return $handler;
+    }
+
+    /**
+     * Test the 'remove' method
+     *
+     * Ensure that we can remove already set configuration items. On a missing
+     * key, false must be returned. On success, true.
+     *
+     * @depends testGet
+     */
+    public function testRemove($handler)
+    {
+        $this->assertTrue($handler->remove("test.config.write"));
+        $this->assertEquals($handler->get("test.config.write"), null);
+        $this->assertFalse($handler->remove("test.config.missing"));
     }
 }

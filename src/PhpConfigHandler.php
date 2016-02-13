@@ -86,4 +86,22 @@ class PhpConfigHandler implements ConfigHandlerInterface
             ? $this->_configValues[$key]
             : null;
     }
+
+    /**
+     * Remove config item
+     *
+     * Check if an item with provided key exists, and remove it.
+     *
+     * @param string $key Config item key
+     * @return bool
+     */
+    public function remove($key)
+    {
+        if (isset($this->_configValues[$key]) === false) {
+            return false;
+        }
+
+        unset($this->_configValues[$key]);
+        return true;
+    }
 }
