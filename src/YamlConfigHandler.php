@@ -17,6 +17,23 @@ namespace SlaxWeb;
 class YamlConfigHandler extends ConfigHandler
 {
     /**
+     * YamlConfigHandler constructor
+     *
+     * Check that the Symfony\Component\Yaml\Yaml class exists, if it does not
+     * throw an exception.
+     *
+     * return void
+     */
+    public function __construct()
+    {
+        if (class_exists("\\Symfony\\Component\\Yaml\\Yaml") === false) {
+            throw new Exception\YamlParserMissingException(
+                "Please ensure that you have installed 3.0.x version of the package 'symfony/yaml'"
+            );
+        }
+    }
+
+    /**
      * Load the Config File
      *
      * Check if the file exists, load it, and parse the containing array into
@@ -35,9 +52,10 @@ class YamlConfigHandler extends ConfigHandler
             return static::CONFIG_RESOURCE_NOT_FOUND;
         }
 
-        require_once $config;
-
-        if (isset($configuration) === false) {
+        $configContents = file_get_contents($config);
+        try {
+            $configuration = \Symfony\Component\Yaml\Yaml::parse($configContents);
+        } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
             return static::CONFIG_PARSE_ERROR;
         }
 
