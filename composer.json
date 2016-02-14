@@ -13,12 +13,13 @@
 		"php":	">=5.4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.8"
+        "phpunit/phpunit": "~4.8",
+        "desperado/xml-bundle": "~0.1"
     },
     "suggest": {
         "pimple/pimple": "Make use of available providers for Pimple version 3.0.x",
         "symfony/yaml": "If you would like to use YAML config files, you have to install symfony/yaml package, version 3.0.x",
-        "sabre/xml": "If you would like to use XML config files, you have to install sabre/xml package, version 1.3.x"
+        "desperado/xml-bundle": "If you would like to use XML config files, you have to install desperado/xml-bundle package, version 0.1.x"
     },
 	"autoload":	{
 		"psr-4": {
