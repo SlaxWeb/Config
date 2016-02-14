@@ -108,6 +108,33 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test offsetGet
+     *
+     * Test the 'get' method of the ArrayAccess. It should return the value of
+     * the configuration item.
+     */
+    public function testOffsetGet()
+    {
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+
+        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+            ->setMethods(["get"])
+            ->getMock();
+
+        $handler->expects($this->once())
+            ->method("get")
+            ->with("test.config")
+            ->willReturn("value");
+
+        $config->__construct($handler, "some/path");
+
+        $this->assertEquals($config["test.config"], "value");
+    }
+
+    /**
      * Test Error Handler
      *
      * Set the error to the internal error container for checking later

@@ -79,7 +79,7 @@ class Config implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-
+        return $this->_handler->get($offset);
     }
 
     /**
