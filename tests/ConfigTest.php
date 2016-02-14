@@ -74,6 +74,36 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test offsetExists
+     *
+     * Test the 'exists' method of the ArrayAccess. It should simply just pass
+     * back the true/false values from the handler.
+     */
+    public function testOffsetExists()
+    {
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+
+        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+            ->setMethods(["exists"])
+            ->getMock();
+
+        $handler->expects($this->exactly(2))
+            ->method("exists")
+            ->withConsecutive(
+                [$this->equalTo("existing")],
+                [$this->equalTo("missing")]
+            )->will($this->onConsecutiveCalls(true, false));
+
+        $config->__construct($handler);
+
+        $this->assertTrue(isset($config["existing"]));
+        $this->assertFalse(isset($config["missing"]));
+    }
+
+    /**
      * Test Error Handler
      *
      * Set the error to the internal error container for checking later
