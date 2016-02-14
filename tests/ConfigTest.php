@@ -53,24 +53,28 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             ->setMethods(null)
             ->getMock();
 
+        $config->__construct(new \stdClass, "some/path");
+        $this->assertContains(
+            "Argument 1 passed to SlaxWeb\\Config::__construct() must "
+            . "implement interface SlaxWeb\\ConfigHandlerInterface",
+            $this->__error[0]["errorString"]
+        );
+
+        $this->__error = [];
+        $config->__construct($handler, "some/path");
+        $this->assertEquals($this->__error, []);
+
+        $this->setExpectedException(
+            "\\SlaxWeb\\Exception\\ResourceLocationException",
+            "The passed in resource location must be in string format"
+        );
+        $this->__error = [];
         $config->__construct();
         $this->assertContains(
             "Argument 1 passed to SlaxWeb\\Config::__construct() must "
             . "implement interface SlaxWeb\\ConfigHandlerInterface",
             $this->__error[0]["errorString"]
         );
-
-        $this->__error = [];
-        $config->__construct(new \stdClass);
-        $this->assertContains(
-            "Argument 1 passed to SlaxWeb\\Config::__construct() must "
-            . "implement interface SlaxWeb\\ConfigHandlerInterface",
-            $this->__error[0]["errorString"]
-        );
-
-        $this->__error = [];
-        $config->__construct($handler);
-        $this->assertEquals($this->__error, []);
     }
 
     /**
@@ -97,7 +101,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                 [$this->equalTo("missing")]
             )->will($this->onConsecutiveCalls(true, false));
 
-        $config->__construct($handler);
+        $config->__construct($handler, "some/path");
 
         $this->assertTrue(isset($config["existing"]));
         $this->assertFalse(isset($config["missing"]));

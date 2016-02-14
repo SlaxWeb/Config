@@ -24,15 +24,34 @@ class Config implements \ArrayAccess
     protected $_handler = null;
 
     /**
+     * Config resource location
+     *
+     * @var string
+     */
+    protected $_resLocation = "";
+
+    /**
      * Class constructor
      *
      * Set the injected config handler to the internal protected property.
      *
+     * @param \SlaxWeb\ConfigurationHandlerInterface $handler Configuration
+     *                                                        handler
+     * @param string $resLocation Configuration resource location
      * @return void
      */
-    public function __construct(ConfigHandlerInterface $handler)
-    {
+    public function __construct(
+        ConfigHandlerInterface $handler,
+        $resLocation
+    ) {
         $this->_handler = $handler;
+
+        if (is_string($resLocation) === false) {
+            throw new Exception\ResourceLocationException(
+                "The passed in resource location must be in string format"
+            );
+        }
+        $this->_resLocation = $resLocation;
     }
 
     /**
