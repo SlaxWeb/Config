@@ -1,6 +1,6 @@
 <?php
 /**
- * Config Handler Bastract Interface
+ * Config Handler Interface
  *
  * Interface for the Config Handlers. All Config handlers must implement this
  * interface to be accepted by the main Config class. Normally the Config
