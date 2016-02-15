@@ -13,18 +13,19 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\XmlConfigHandler as ConfigHandler;
+use SlaxWeb\Config\XmlConfigHandler as ConfigHandler;
 
 class XmlConfigHandlerTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\XmlConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlConfigHandler")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $xmlParser = $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
+        $xmlParser = 
+            $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
             ->setMethods(["processConvert"])
             ->getMock();
 
@@ -46,12 +47,13 @@ class XmlConfigHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\XmlConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlConfigHandler")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $xmlParser = $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
+        $xmlParser = 
+            $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
             ->setMethods(["processConvert"])
             ->getMock();
 

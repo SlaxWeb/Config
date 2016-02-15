@@ -13,7 +13,7 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\YamlConfigHandler as ConfigHandler;
+use SlaxWeb\Config\YamlConfigHandler as ConfigHandler;
 
 class YamlConfigHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class YamlConfigHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\YamlConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\YamlConfigHandler")
             ->setMethods(null)
             ->getMock();
 

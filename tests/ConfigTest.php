@@ -26,12 +26,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
             ->setMethods(null)
             ->getMock();
 
@@ -39,8 +39,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $config->__construct(new \stdClass, "some/path");
         } catch (\TypeError $e) {
             if (preg_match(
-                    "~^Arg.*?1.*?SlaxWeb\\\\Config::__construct.*?interface\s"
-                    . "SlaxWeb\\\\ConfigHandlerInterface.*?stdClass.*$~",
+                    "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
+                    . "interface\sSlaxWeb\\\\Config\\\\ConfigHandlerInterface"
+                    . ".*?stdClass.*$~",
                     $e->getMessage()) == false
             ) {
                 throw new \Exception
@@ -55,8 +56,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $config->__construct($handler, new \stdClass);
         } catch (\TypeError $e) {
             if (preg_match(
-                    "~^Arg.*?2.*?SlaxWeb\\\\Config::__construct.*?type\s"
-                    . "string.*?object.*$~",
+                    "~^Arg.*?2.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
+                    . "type\sstring.*?object.*$~",
                     $e->getMessage()) == false
             ) {
                 throw new \Exception
@@ -74,12 +75,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetExists()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
             ->setMethods(["exists"])
             ->getMock();
 
@@ -104,12 +105,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetGet()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
             ->setMethods(["get"])
             ->getMock();
 
@@ -125,7 +126,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $isException = false;
         try {
             $value = $config[new \stdClass];
-        } catch (\SlaxWeb\Exception\InvalidKeyException $e) {
+        } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
             $isException = true;
         }
         if ($isException === false) {
@@ -143,12 +144,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetSet()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
             ->setMethods(["set"])
             ->getMock();
 
@@ -163,7 +164,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $isException = false;
         try {
             $config[new \stdClass] = "error";
-        } catch (\SlaxWeb\Exception\InvalidKeyException $e) {
+        } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
             $isException = true;
         }
         if ($isException === false) {
