@@ -98,7 +98,12 @@ class Config implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-
+        if (is_string($offset) === false) {
+            throw new Exception\InvalidKeyException(
+                "Key must be a non-empty string"
+            );
+        }
+        $this->_handler->set($offset, $value);
     }
 
     /**
