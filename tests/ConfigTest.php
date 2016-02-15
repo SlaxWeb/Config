@@ -39,13 +39,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $config->__construct(new \stdClass, "some/path");
         } catch (\TypeError $e) {
             if (preg_match(
-                    "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
+                "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
                     . "interface\sSlaxWeb\\\\Config\\\\ConfigHandlerInterface"
                     . ".*?stdClass.*$~",
-                    $e->getMessage()) == false
-            ) {
-                throw new \Exception
-                    ("Not the expected error message: " . $e->getMessage()
+                $e->getMessage()
+            ) == false) {
+                throw new \Exception(
+                    "Not the expected error message: " . $e->getMessage()
                 );
             }
         }
@@ -56,12 +56,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $config->__construct($handler, new \stdClass);
         } catch (\TypeError $e) {
             if (preg_match(
-                    "~^Arg.*?2.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
+                "~^Arg.*?2.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
                     . "type\sstring.*?object.*$~",
-                    $e->getMessage()) == false
-            ) {
-                throw new \Exception
-                    ("Not the expected error message: " . $e->getMessage()
+                $e->getMessage()
+            ) == false) {
+                throw new \Exception(
+                    "Not the expected error message: " . $e->getMessage()
                 );
             }
         }
@@ -125,7 +125,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         $isException = false;
         try {
-            $value = $config[new \stdClass];
+            $config[new \stdClass];
         } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
             $isException = true;
         }
