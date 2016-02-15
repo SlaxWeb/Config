@@ -134,4 +134,42 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             );
         }
     }
+
+    /**
+     * Test offsetSet
+     *
+     * Test the 'set' method of the ArrayAccess. It must set the proper value
+     * through the configuration handler.
+     */
+    public function testOffsetSet()
+    {
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config")
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+
+        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+            ->setMethods(["set"])
+            ->getMock();
+
+        $handler->expects($this->once())
+            ->method("set")
+            ->with("test.config", "value");
+
+        $config->__construct($handler, "some/path");
+
+        $config["test.config"] = "value";
+
+        $isException = false;
+        try {
+            $config[new \stdClass] = "error";
+        } catch (\SlaxWeb\Exception\InvalidKeyException $e) {
+            $isException = true;
+        }
+        if ($isException === false) {
+            throw new \Exception(
+                "Test was expected to throw 'InvalidKeyException'"
+            );
+        }
+    }
 }
