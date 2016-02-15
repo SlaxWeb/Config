@@ -37,7 +37,7 @@ class Factory
                 $handler = new XmlConfigHandler($xml);
                 break;
             case "yaml":
-                $handler = new YamlParserMissingException;
+                $handler = new YamlConfigHandler;
                 break;
             default:
                 throw new Exception\InvalidHandlerTypeException(
