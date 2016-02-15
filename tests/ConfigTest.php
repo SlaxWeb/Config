@@ -51,20 +51,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         }
 
         $config->__construct($handler, "some/path");
-
-        try {
-            $config->__construct($handler, new \stdClass);
-        } catch (\TypeError $e) {
-            if (preg_match(
-                "~^Arg.*?2.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
-                    . "type\sstring.*?object.*$~",
-                $e->getMessage()
-            ) == false) {
-                throw new \Exception(
-                    "Not the expected error message: " . $e->getMessage()
-                );
-            }
-        }
     }
 
     /**
@@ -122,18 +108,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->__construct($handler, "some/path");
 
         $this->assertEquals($config["test.config"], "value");
-
-        $isException = false;
-        try {
-            $config[new \stdClass];
-        } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
-            $isException = true;
-        }
-        if ($isException === false) {
-            throw new \Exception(
-                "Test was expected to throw 'InvalidKeyException'"
-            );
-        }
     }
 
     /**
@@ -160,18 +134,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->__construct($handler, "some/path");
 
         $config["test.config"] = "value";
-
-        $isException = false;
-        try {
-            $config[new \stdClass] = "error";
-        } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
-            $isException = true;
-        }
-        if ($isException === false) {
-            throw new \Exception(
-                "Test was expected to throw 'InvalidKeyException'"
-            );
-        }
     }
 
     /**
@@ -209,18 +171,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         if ($isException === false) {
             throw new \Exception(
                 "Test was expected to throw 'MissingKeyException'"
-            );
-        }
-
-        $isException = false;
-        try {
-            unset($config[new \stdClass]);
-        } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
-            $isException = true;
-        }
-        if ($isException === false) {
-            throw new \Exception(
-                "Test was expected to throw 'InvalidKeyException'"
             );
         }
     }
