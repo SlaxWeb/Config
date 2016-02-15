@@ -173,4 +173,55 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             );
         }
     }
+
+    /**
+     * Test offsetUnset
+     *
+     * Test the 'unset' method of the ArrayAccess implementation. It must unset
+     * the received offset through the configuration handler.
+     */
+    public function testOffsetUnset()
+    {
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+            ->setMethods(["remove"])
+            ->getMock();
+
+        $handler->expects($this->exactly(2))
+            ->method("remove")
+            ->withConsecutive(["test.config"], ["test.missing"])
+            ->will($this->onConsecutiveCalls(true, false));
+
+        $config->__construct($handler, "some/path");
+
+        unset($config["test.config"]);
+
+        $isException = false;
+        try {
+            unset($config["test.missing"]);
+        } catch (\SlaxWeb\Config\Exception\MissingKeyException $e) {
+            $isException = true;
+        }
+        if ($isException === false) {
+            throw new \Exception(
+                "Test was expected to throw 'MissingKeyException'"
+            );
+        }
+
+        $isException = false;
+        try {
+            unset($config[new \stdClass]);
+        } catch (\SlaxWeb\Config\Exception\InvalidKeyException $e) {
+            $isException = true;
+        }
+        if ($isException === false) {
+            throw new \Exception(
+                "Test was expected to throw 'InvalidKeyException'"
+            );
+        }
+    }
 }
