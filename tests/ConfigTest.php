@@ -19,24 +19,6 @@ namespace SlaxWeb\Config\Tests;
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Internal Error Cotnainer
-     *
-     * @var array
-     */
-    private $__error = [];
-
-    /**
-     * Set up the test case
-     *
-     * Clear the internal error container, and set the errpr handler
-     */
-    protected function setUp()
-    {
-        $this->__error = [];
-        set_error_handler([$this, "errorHandler"]);
-    }
-
-    /**
      * Test the class constructor
      *
      * The Config class must receive a handler that implements the
@@ -53,28 +35,26 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             ->setMethods(null)
             ->getMock();
 
-        $config->__construct(new \stdClass, "some/path");
-        $this->assertContains(
-            "Argument 1 passed to SlaxWeb\\Config::__construct() must "
-            . "implement interface SlaxWeb\\ConfigHandlerInterface",
-            $this->__error[0]["errorString"]
-        );
+        try {
+            $config->__construct(new \stdClass, "some/path");
+        } catch (\TypeError $e) {
+            if (preg_match(
+                    "~^Arg.*?1.*?SlaxWeb\\Config::__construct.*?interface\s"
+                    . "SlaxWeb\\ConfigHandlerInterface.*?stdClass.*$~",
+                    $e->getMessage()
+            )) {
+                throw new \Exception
+                    ("Not the expected error message: " . $e->getMessage()
+                );
+            }
+        }
 
-        $this->__error = [];
         $config->__construct($handler, "some/path");
-        $this->assertEquals($this->__error, []);
 
-        $this->setExpectedException(
-            "\\SlaxWeb\\Exception\\ResourceLocationException",
-            "The passed in resource location must be in string format"
-        );
-        $this->__error = [];
-        $config->__construct();
-        $this->assertContains(
-            "Argument 1 passed to SlaxWeb\\Config::__construct() must "
-            . "implement interface SlaxWeb\\ConfigHandlerInterface",
-            $this->__error[0]["errorString"]
-        );
+        try {
+            $config->__construct($handler, new \stdClass);
+        } catch (\SlaxWeb\Exception\ResourceLocationException $e) {
+        }
     }
 
     /**
@@ -132,28 +112,5 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->__construct($handler, "some/path");
 
         $this->assertEquals($config["test.config"], "value");
-    }
-
-    /**
-     * Test Error Handler
-     *
-     * Set the error to the internal error container for checking later
-     */
-    public function errorHandler(
-        $errorNumber,
-        $errorString,
-        $errorFile,
-        $errorLine,
-        $errorContext
-    ) {
-        $this->__error[] = compact(
-            "errorNumber",
-            "errorString",
-            "errorFile",
-            "errorLine",
-            "errorContext"
-        );
-
-        return true;
     }
 }
