@@ -2,7 +2,8 @@
 /**
  * Config Handler Test
  *
- * Test class for the Config Handler abstract class of the SlaxWeb\Config component.
+ * Test class for the Config Handler abstract class of the SlaxWeb\Config
+ * component.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -24,7 +25,8 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSet()
     {
-        $handler = $this->getMockForAbstractClass("\\SlaxWeb\\ConfigHandler");
+        $handler =
+            $this->getMockForAbstractClass("\\SlaxWeb\\Config\\ConfigHandler");
 
         $this->assertTrue($handler->set("test.config.write", true));
         $this->assertFalse($handler->set(false, "error"));

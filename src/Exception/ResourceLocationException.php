@@ -12,7 +12,7 @@
  * @link      https://github.com/slaxweb/
  * @version   0.1
  */
-namespace SlaxWeb\Exception;
+namespace SlaxWeb\Config\Exception;
 
 class ResourceLocationException extends \Exception
 {

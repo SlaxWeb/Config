@@ -13,7 +13,7 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\PhpConfigHandler as ConfigHandler;
+use SlaxWeb\Config\PhpConfigHandler as ConfigHandler;
 
 class PhpConfigHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class PhpConfigHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
             ->setMethods(null)
             ->getMock();
 
