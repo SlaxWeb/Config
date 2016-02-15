@@ -51,7 +51,7 @@ class Config implements \ArrayAccess
                 "The passed in resource location must be in string format"
             );
         }
-        $this->_resLocation = $resLocation;
+        $this->_resLocation = rtrim($resLocation, "/") . "/";
     }
 
     /**
@@ -126,6 +126,33 @@ class Config implements \ArrayAccess
             throw new Exception\MissingKeyException(
                 "The key does not exists, and can not be unset"
             );
+        }
+    }
+
+    /**
+     * Load config resource
+     *
+     * Combine the received configuration resource name with the
+     * '_configLocation' protected property, and pass it to the config handler.
+     *
+     * @param string $resourceName Name of the configuration resource
+     * @return void
+     */
+    public function load(string $resourceName)
+    {
+        switch ($this->_handler->load($this->_resLocation . $resourceName)) {
+            case ConfigHandlerInterface::CONFIG_PARSE_ERROR:
+                throw new Exception\ConfigParseException(
+                    "Error parsing '{$this->_resLocation}{$resourceName}' "
+                    . "config file"
+                );
+                break;
+            case ConfigHandlerInterface::CONFIG_RESOURCE_NOT_FOUND:
+                throw new Exception\ConfigResourceNotFoundException(
+                    "Error '{$this->_resLocation}{$resourceName}' config file "
+                    . "not found"
+                );
+                break;
         }
     }
 }

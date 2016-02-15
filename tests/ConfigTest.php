@@ -224,4 +224,67 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             );
         }
     }
+
+    /**
+     * Test config file loading
+     *
+     * Test that the 'load' method forwards the correct file name to the
+     * configuration handler, and handles the responding code accordingly.
+     */
+    public function testLoad()
+    {
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+            ->setMethods(["load"])
+            ->getMock();
+
+        $handler->expects($this->exactly(3))
+            ->method("load")
+            ->withConsecutive(
+                ["/some/path/config.ok.php"],
+                ["/some/path/config.parse.error.php"],
+                ["/some/path/config.missing.php"]
+            )->will($this->onConsecutiveCalls(100, 102, 101));
+
+        $config->__construct($handler, "/some/path");
+
+        // ok load
+        $config->load("config.ok.php");
+
+        // parse error
+        $isException = false;
+        try {
+            $config->load("config.parse.error.php");
+        } catch (\SlaxWeb\Config\Exception\ConfigParseException $e) {
+            if ($e->getMessage() ===
+                "Error parsing '/some/path/config.parse.error.php' config file") {
+                $isException = true;
+            }
+        }
+        if ($isException === false) {
+            throw new \Exception(
+                "Test was expected to throw 'ConfigParseException'"
+            );
+        }
+
+        // missing config file
+        $isException = false;
+        try {
+            $config->load("config.missing.php");
+        } catch (\SlaxWeb\Config\Exception\ConfigResourceNotFoundException $e) {
+            if ($e->getMessage() ===
+                "Error '/some/path/config.missing.php' config file not found") {
+                $isException = true;
+            }
+        }
+        if ($isException === false) {
+            throw new \Exception(
+                "Test was expected to throw 'ConfigResourceNotFoundException'"
+            );
+        }
+    }
 }
