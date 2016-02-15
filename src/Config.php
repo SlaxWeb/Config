@@ -42,7 +42,7 @@ class Config implements \ArrayAccess
      */
     public function __construct(
         ConfigHandlerInterface $handler,
-        $resLocation
+        string $resLocation
     ) {
         $this->_handler = $handler;
 
@@ -63,7 +63,7 @@ class Config implements \ArrayAccess
      * @param string $offset Configuration key name
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->_handler->exists($offset);
     }

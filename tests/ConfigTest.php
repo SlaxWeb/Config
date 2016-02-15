@@ -39,10 +39,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $config->__construct(new \stdClass, "some/path");
         } catch (\TypeError $e) {
             if (preg_match(
-                    "~^Arg.*?1.*?SlaxWeb\\Config::__construct.*?interface\s"
-                    . "SlaxWeb\\ConfigHandlerInterface.*?stdClass.*$~",
-                    $e->getMessage()
-            )) {
+                    "~^Arg.*?1.*?SlaxWeb\\\\Config::__construct.*?interface\s"
+                    . "SlaxWeb\\\\ConfigHandlerInterface.*?stdClass.*$~",
+                    $e->getMessage()) == false
+            ) {
                 throw new \Exception
                     ("Not the expected error message: " . $e->getMessage()
                 );
@@ -53,7 +53,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         try {
             $config->__construct($handler, new \stdClass);
-        } catch (\SlaxWeb\Exception\ResourceLocationException $e) {
+        } catch (\TypeError $e) {
+            if (preg_match(
+                    "~^Arg.*?2.*?SlaxWeb\\\\Config::__construct.*?type\s"
+                    . "string.*?object.*$~",
+                    $e->getMessage()) == false
+            ) {
+                throw new \Exception
+                    ("Not the expected error message: " . $e->getMessage()
+                );
+            }
         }
     }
 

@@ -28,7 +28,7 @@ class PhpConfigHandler extends ConfigHandler
      * @param string $config Path to the config resource
      * @return int
      */
-    public function load($config)
+    public function load(string $config): int
     {
         // check file exists
         if (file_exists($config) === false) {
