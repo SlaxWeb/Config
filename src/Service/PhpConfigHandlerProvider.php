@@ -32,7 +32,7 @@ class PhpConfigHandlerProvider implements
     public function register(Container $container)
     {
         $container["phpConfigHandler.service"] = function () {
-            return new PhpConfigHandler;
+            return new \SlaxWeb\Config\PhpConfigHandler;
         };
     }
 }
