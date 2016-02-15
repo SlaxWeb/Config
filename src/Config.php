@@ -116,6 +116,16 @@ class Config implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
+        if (is_string($offset) === false) {
+            throw new Exception\InvalidKeyException(
+                "Key must be a non-empty string"
+            );
+        }
 
+        if ($this->_handler->remove($offset) === false) {
+            throw new Exception\MissingKeyException(
+                "The key does not exists, and can not be unset"
+            );
+        }
     }
 }
