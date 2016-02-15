@@ -30,7 +30,7 @@ class ConfigProvider implements \Pimple\ServiceProviderInterface
     {
         $container["config.service"] = function (Container $cont) {
             return new \SlaxWeb\Config\Config(
-                $cont["configHandler"],
+                $cont["configHandler.service"],
                 $cont["configResourceLocation"]
             );
         };
@@ -38,17 +38,17 @@ class ConfigProvider implements \Pimple\ServiceProviderInterface
         $container["configHandler.service"] = function (Container $cont) {
             switch ($cont["configHandler"]) {
                 case "php":
-                    return new PhpConfigHandler;
+                    return new \SlaxWeb\Config\PhpConfigHandler;
                     break;
                 case "xml":
                     $xml = new \Desperado\XmlBundle\Model\XmlReader;
-                    return new XmlConfigHandler($xml);
+                    return new \SlaxWeb\Config\XmlConfigHandler($xml);
                     break;
                 case "yaml":
-                    return new YamlConfigHandler;
+                    return new \SlaxWeb\Config\YamlConfigHandler;
                     break;
                 default:
-                    throw new Exception\InvalidHandlerTypeException(
+                    throw new \SlaxWeb\Config\Exception\InvalidHandlerTypeException(
                         "Handler type property 'configHandler' must be one of "
                         . "['php', 'xml', 'yaml']"
                     );
