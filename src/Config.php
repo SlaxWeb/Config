@@ -45,12 +45,6 @@ class Config implements \ArrayAccess
         string $resLocation
     ) {
         $this->_handler = $handler;
-
-        if (is_string($resLocation) === false) {
-            throw new Exception\ResourceLocationException(
-                "The passed in resource location must be in string format"
-            );
-        }
         $this->_resLocation = rtrim($resLocation, "/") . "/";
     }
 
@@ -79,11 +73,6 @@ class Config implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        if (is_string($offset) === false) {
-            throw new Exception\InvalidKeyException(
-                "Key must be a non-empty string"
-            );
-        }
         return $this->_handler->get($offset);
     }
 
@@ -98,11 +87,6 @@ class Config implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        if (is_string($offset) === false) {
-            throw new Exception\InvalidKeyException(
-                "Key must be a non-empty string"
-            );
-        }
         $this->_handler->set($offset, $value);
     }
 
@@ -116,12 +100,6 @@ class Config implements \ArrayAccess
      */
     public function offsetUnset($offset)
     {
-        if (is_string($offset) === false) {
-            throw new Exception\InvalidKeyException(
-                "Key must be a non-empty string"
-            );
-        }
-
         if ($this->_handler->remove($offset) === false) {
             throw new Exception\MissingKeyException(
                 "The key does not exists, and can not be unset"
