@@ -121,5 +121,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $config->__construct($handler, "some/path");
 
         $this->assertEquals($config["test.config"], "value");
+
+        $isException = false;
+        try {
+            $value = $config[new \stdClass];
+        } catch (\SlaxWeb\Exception\InvalidKeyException $e) {
+            $isException = true;
+        }
+        if ($isException === false) {
+            throw new \Exception(
+                "Test was expected to throw 'InvalidKeyException'"
+            );
+        }
     }
 }
