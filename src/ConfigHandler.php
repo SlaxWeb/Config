@@ -33,7 +33,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $config Path to the config resource
      * @return int
      */
-    abstract public function load($config);
+    abstract public function load(string $config): int;
 
     /**
      * Set config item
@@ -44,9 +44,9 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param mixed $value Config item value
      * @return bool
      */
-    public function set($key, $value)
+    public function set(string $key, $value): bool
     {
-        if (is_string($key) === false) {
+        if (is_string($key) === false || $key === "") {
             return false;
         }
 
@@ -63,7 +63,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $key Config item key
      * @return mixed
      */
-    public function get($key)
+    public function get(string $key)
     {
         return isset($this->_configValues[$key])
             ? $this->_configValues[$key]
@@ -78,7 +78,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $key Config item key
      * @return bool
      */
-    public function remove($key)
+    public function remove(string $key): bool
     {
         if (isset($this->_configValues[$key]) === false) {
             return false;
@@ -96,7 +96,7 @@ abstract class ConfigHandler implements ConfigHandlerInterface
      * @param string $key Config item key
      * @return bool
      */
-    public function exists($key)
+    public function exists(string $key): bool
     {
         return isset($this->_configValues[$key]);
     }
