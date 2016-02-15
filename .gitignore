@@ -1,0 +1,7 @@
+**/.DS_Store
+**.swp
+**.directory
+**.session.vim
+composer.lock
+vendor/
+.tags

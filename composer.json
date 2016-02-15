@@ -1,0 +1,34 @@
+{
+    "name": "slaxweb/config",
+    "description": "Config component for the SlaxWeb Framework",
+    "license": "MIT",
+    "version": "0.1.0",
+    "authors": [
+        {
+            "name": "Tomaz Lovrec",
+            "email": "tomaz.lovrec@gmail.com"
+        }
+    ],
+    "require": {
+		"php":	">=7.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.2",
+        "desperado/xml-bundle": "~0.1"
+    },
+    "suggest": {
+        "pimple/pimple": "Make use of available providers for Pimple version 3.0.x",
+        "symfony/yaml": "If you would like to use YAML config files, you have to install symfony/yaml package, version 3.0.x",
+        "desperado/xml-bundle": "If you would like to use XML config files, you have to install desperado/xml-bundle package, version 0.1.x"
+    },
+	"autoload":	{
+		"psr-4": {
+			"SlaxWeb\\Config\\": "src/"
+		}
+	},
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.1.x-dev"
+        }
+    }
+}
