@@ -37,14 +37,14 @@ class ConfigProvider implements \Pimple\ServiceProviderInterface
 
         $container["configHandler.service"] = function (Container $cont) {
             switch ($cont["configHandler"]) {
-                case "php":
+                case \SlaxWeb\Config\Config::PHP_CONFIG_HANDLER:
                     return new \SlaxWeb\Config\PhpConfigHandler;
                     break;
-                case "xml":
+                case \SlaxWeb\Config\Config::XML_CONFIG_HANDLER:
                     $xml = new \Desperado\XmlBundle\Model\XmlReader;
                     return new \SlaxWeb\Config\XmlConfigHandler($xml);
                     break;
-                case "yaml":
+                case \SlaxWeb\Config\Config::YAML_CONFIG_HANDLER:
                     return new \SlaxWeb\Config\YamlConfigHandler;
                     break;
                 default:

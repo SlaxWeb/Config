@@ -17,6 +17,13 @@ namespace SlaxWeb\Config;
 class Config implements \ArrayAccess
 {
     /**
+     * Config handler constants
+     */
+    const PHP_CONFIG_HANDLER = "php";
+    const XML_CONFIG_HANDLER = "xml";
+    const YAML_CONFIG_HANDLER = "yaml";
+
+    /**
      * Config Handler
      *
      * @var \SlaxWeb\ConfigHandlerInterface
