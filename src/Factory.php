@@ -29,14 +29,14 @@ class Factory
     {
         $handler = null;
         switch (strtolower($handlerType)) {
-            case "php":
+            case Config::PHP_CONFIG_HANDLER:
                 $handler = new PhpConfigHandler;
                 break;
-            case "xml":
+            case Config::XML_CONFIG_HANDLER:
                 $xml = new \Desperado\XmlBundle\Model\XmlReader;
                 $handler = new XmlConfigHandler($xml);
                 break;
-            case "yaml":
+            case Config::YAML_CONFIG_HANDLER:
                 $handler = new YamlConfigHandler;
                 break;
             default:
