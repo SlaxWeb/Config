@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/SlaxWeb/Config.svg)](https://travis-ci.org/SlaxWeb/Config)
 
-Config component of the SlaxWeb\Framework, handles loading and parsing of
-configuration options, from multiple sources. Currently only file based
+Config component of the SlaxWeb\Framework handles loading and parsing of
+configuration options from multiple sources. Currently only file based
 resources are supported, and can be in 3 formats, PHP, XML, or Yaml.
 
 Requirements
@@ -30,14 +30,14 @@ just require the package in your *composer.json* file:
 
 And this should get you started to use the Config component, with the PHP
 configuration handler. If you want to use XML or Yaml configuration providers,
-you need to install their respective required packages with composer(see
+you need to install their respective required packages with composer (see
 Requirements).
 
 Usage
 =====
 
-The Config component provides you a *Factory* class, for easier instantiation,
-to get started, simply call the **init** static method of the Factory, with
+The Config component provides you a *Factory* class for easier instantiation.
+To get started, simply call the **init** static method of the Factory with
 the correct constant for the configuration handler you want to use, and the path
 to your configuration file location. Configuration handler constants:
 * \SlaxWeb\Config\Config::PHP_CONFIG_HANDLER
@@ -59,7 +59,7 @@ Manipulating configuration
 --------------------------
 
 The Config class implements *ArrayAccess* and must be used as such. Retrieving,
-setting, removing, and checking for existence, is done like if it were on an
+setting, removing and checking for existence, is done like if it were on an
 array. For loading of new configuration resources, the **load** method is
 provided. Example PHP configuration file:
 
@@ -95,7 +95,7 @@ Using the Provider
 
 If you are using the Pimple\Pimple Dependency Injection Container, you can use
 the provided Service Provider. Make sure that before you are going to use the
-config.service that you have set the *configResourceLocation*, and the
+config.service, that you have set the *configResourceLocation*, and the
 *configHandler* properties in your container. To use the provider, simply
 register it with your container:
 
