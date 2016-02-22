@@ -16,7 +16,7 @@ namespace SlaxWeb\Config\Service;
 
 use Pimple\Container;
 
-class ConfigProvider implements \Pimple\ServiceProviderInterface
+class Provider implements \Pimple\ServiceProviderInterface
 {
     /**
      * Register provider
@@ -29,7 +29,7 @@ class ConfigProvider implements \Pimple\ServiceProviderInterface
     public function register(Container $container)
     {
         $container["config.service"] = function (Container $cont) {
-            return new \SlaxWeb\Config\Config(
+            return new \SlaxWeb\Config\Container(
                 $cont["configHandler.service"],
                 $cont["configResourceLocation"]
             );
@@ -37,15 +37,15 @@ class ConfigProvider implements \Pimple\ServiceProviderInterface
 
         $container["configHandler.service"] = function (Container $cont) {
             switch ($cont["configHandler"]) {
-                case \SlaxWeb\Config\Config::PHP_CONFIG_HANDLER:
-                    return new \SlaxWeb\Config\PhpConfigHandler;
+                case \SlaxWeb\Config\Container::PHP_CONFIG_HANDLER:
+                    return new \SlaxWeb\Config\PhpHandler;
                     break;
-                case \SlaxWeb\Config\Config::XML_CONFIG_HANDLER:
+                case \SlaxWeb\Config\Container::XML_CONFIG_HANDLER:
                     $xml = new \Desperado\XmlBundle\Model\XmlReader;
-                    return new \SlaxWeb\Config\XmlConfigHandler($xml);
+                    return new \SlaxWeb\Config\XmlHandler($xml);
                     break;
-                case \SlaxWeb\Config\Config::YAML_CONFIG_HANDLER:
-                    return new \SlaxWeb\Config\YamlConfigHandler;
+                case \SlaxWeb\Config\Container::YAML_CONFIG_HANDLER:
+                    return new \SlaxWeb\Config\YamlHandler;
                     break;
                 default:
                     throw new \SlaxWeb\Config\Exception\InvalidHandlerTypeException(

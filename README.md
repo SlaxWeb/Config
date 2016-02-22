@@ -40,13 +40,13 @@ The Config component provides you a *Factory* class for easier instantiation.
 To get started, simply call the **init** static method of the Factory with
 the correct constant for the configuration handler you want to use, and the path
 to your configuration file location. Configuration handler constants:
-* \SlaxWeb\Config\Config::PHP_CONFIG_HANDLER
-* \SlaxWeb\Config\Config::XML_CONFIG_HANDLER
-* \SlaxWeb\Config\Config::YAML_CONFIG_HANDLER
+* \SlaxWeb\Config\Container::PHP_CONFIG_HANDLER
+* \SlaxWeb\Config\Container::XML_CONFIG_HANDLER
+* \SlaxWeb\Config\Container::YAML_CONFIG_HANDLER
 
 ```php
 $config = \SlaxWeb\Config\Factory::init(
-    \SlaxWeb\Config\Config::PHP_CONFIG_HANDLER,
+    \SlaxWeb\Config\Container::PHP_CONFIG_HANDLER,
     "/path/to/configuration/"
 );
 ```
@@ -58,10 +58,10 @@ resource location.
 Manipulating configuration
 --------------------------
 
-The Config class implements *ArrayAccess* and must be used as such. Retrieving,
-setting, removing and checking for existence, is done like if it were on an
-array. For loading of new configuration resources, the **load** method is
-provided. Example PHP configuration file:
+The Container class implements *ArrayAccess* and must be used as such.
+Retrieving, setting, removing and checking for existence, is done like if it
+were on an array. For loading of new configuration resources, the **load**
+method is provided. Example PHP configuration file:
 
 ```php
 <?php
@@ -105,9 +105,9 @@ use Pimple\Container;
 
 $container = new Container;
 
-$container->register(new \SlaxWeb\Config\Service\ConfigProvider);
+$container->register(new \SlaxWeb\Config\Service\Provider);
 
-$container["configHandler"] = \SlaxWeb\Config\Config::PHP_CONFIG_HANDLER;
+$container["configHandler"] = \SlaxWeb\Config\Container::PHP_CONFIG_HANDLER;
 $container["configResourceLocation"] = "/path/to/configuration";
 
 $container["service.provider"]->load("myconfig.php");

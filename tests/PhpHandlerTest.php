@@ -1,8 +1,8 @@
 <?php
 /**
- * YAML Config Handler Test
+ * PHP Config Handler Test
  *
- * Test class for the YAML Config Handler class of the SlaxWeb\Config component.
+ * Test class for the PHP Config Handler class of the SlaxWeb\Config component.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -13,9 +13,9 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\Config\YamlConfigHandler as ConfigHandler;
+use SlaxWeb\Config\PhpHandler as Handler;
 
-class YamlConfigHandlerTest extends \PHPUnit_Framework_TestCase
+class PhpHandlerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test 'load' method
@@ -32,24 +32,24 @@ class YamlConfigHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\YamlConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(null)
             ->getMock();
 
         // file found, and parsed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/TestConfig/YamlConfig.yaml"),
-            ConfigHandler::CONFIG_LOADED
+            $handler->load(__DIR__ . "/TestConfig/PhpConfig.php"),
+            Handler::CONFIG_LOADED
         );
         // file not found
         $this->assertEquals(
-            $handler->load(__DIR__ . "/TestConfig/NotFound.yaml"),
-            ConfigHandler::CONFIG_RESOURCE_NOT_FOUND
+            $handler->load(__DIR__ . "/TestConfig/NotFound.php"),
+            Handler::CONFIG_RESOURCE_NOT_FOUND
         );
         // file found, parsing failed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/TestConfig/NotYamlConfig.yaml"),
-            ConfigHandler::CONFIG_PARSE_ERROR
+            $handler->load(__DIR__ . "/TestConfig/MissingPhpConfig.php"),
+            Handler::CONFIG_PARSE_ERROR
         );
 
         $this->assertEquals($handler->get("test.config"), "test");

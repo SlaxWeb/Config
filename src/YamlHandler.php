@@ -1,8 +1,8 @@
 <?php
 /**
- * PHP Config Handler
+ * Yaml Config Handler
  *
- * Handles loading of PHP config files, and parsing their contents into the
+ * Handles loading of Yaml config files, and parsing their contents into the
  * config array.
  *
  * @package   SlaxWeb\Config
@@ -14,8 +14,25 @@
  */
 namespace SlaxWeb\Config;
 
-class PhpConfigHandler extends ConfigHandler
+class YamlHandler extends Handler
 {
+    /**
+     * YamlHandler constructor
+     *
+     * Check that the Symfony\Component\Yaml\Yaml class exists, if it does not
+     * throw an exception.
+     *
+     * return void
+     */
+    public function __construct()
+    {
+        if (class_exists("\\Symfony\\Component\\Yaml\\Yaml") === false) {
+            throw new Exception\YamlParserMissingException(
+                "Please ensure that you have installed 3.0.x version of the package 'symfony/yaml'"
+            );
+        }
+    }
+
     /**
      * Load the Config File
      *
@@ -35,9 +52,10 @@ class PhpConfigHandler extends ConfigHandler
             return static::CONFIG_RESOURCE_NOT_FOUND;
         }
 
-        require_once $config;
-
-        if (isset($configuration) === false) {
+        $configContents = file_get_contents($config);
+        try {
+            $configuration = \Symfony\Component\Yaml\Yaml::parse($configContents);
+        } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
             return static::CONFIG_PARSE_ERROR;
         }
 

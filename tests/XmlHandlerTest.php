@@ -13,18 +13,18 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\Config\XmlConfigHandler as ConfigHandler;
+use SlaxWeb\Config\XmlHandler as Handler;
 
-class XmlConfigHandlerTest extends \PHPUnit_Framework_TestCase
+class XmlHandlerTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $xmlParser = 
+        $xmlParser =
             $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
             ->setMethods(["processConvert"])
             ->getMock();
@@ -47,12 +47,12 @@ class XmlConfigHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $xmlParser = 
+        $xmlParser =
             $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
             ->setMethods(["processConvert"])
             ->getMock();
@@ -68,17 +68,17 @@ class XmlConfigHandlerTest extends \PHPUnit_Framework_TestCase
         // file found, and parsed
         $this->assertEquals(
             $handler->load(__DIR__ . "/TestConfig/XmlConfig.xml"),
-            ConfigHandler::CONFIG_LOADED
+            Handler::CONFIG_LOADED
         );
         // file not found
         $this->assertEquals(
             $handler->load(__DIR__ . "/TestConfig/NotFound.xml"),
-            ConfigHandler::CONFIG_RESOURCE_NOT_FOUND
+            Handler::CONFIG_RESOURCE_NOT_FOUND
         );
         // file found, parsing failed
         $this->assertEquals(
             $handler->load(__DIR__ . "/TestConfig/NotXmlConfig.xml"),
-            ConfigHandler::CONFIG_PARSE_ERROR
+            Handler::CONFIG_PARSE_ERROR
         );
 
         $this->assertEquals($handler->get("test.config"), "test");
