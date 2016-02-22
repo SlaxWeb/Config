@@ -2,8 +2,8 @@
 /**
  * Config Class
  *
- * The Config class needs to communicate with the Config Handler class of the
- * ConfigHandlerInterface, and raise appropriate Exceptions on errors.
+ * The Container class needs to communicate with the Config Handler class of the
+ * HandlerInterface, and raise appropriate Exceptions on errors.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -14,7 +14,7 @@
  */
 namespace SlaxWeb\Config;
 
-class Config implements \ArrayAccess
+class Container implements \ArrayAccess
 {
     /**
      * Config handler constants
@@ -26,7 +26,7 @@ class Config implements \ArrayAccess
     /**
      * Config Handler
      *
-     * @var \SlaxWeb\ConfigHandlerInterface
+     * @var \SlaxWeb\HandlerInterface
      */
     protected $_handler = null;
 
@@ -48,7 +48,7 @@ class Config implements \ArrayAccess
      * @return void
      */
     public function __construct(
-        ConfigHandlerInterface $handler,
+        HandlerInterface $handler,
         string $resLocation
     ) {
         $this->_handler = $handler;
@@ -126,13 +126,13 @@ class Config implements \ArrayAccess
     public function load(string $resourceName)
     {
         switch ($this->_handler->load($this->_resLocation . $resourceName)) {
-            case ConfigHandlerInterface::CONFIG_PARSE_ERROR:
+            case HandlerInterface::CONFIG_PARSE_ERROR:
                 throw new Exception\ConfigParseException(
                     "Error parsing '{$this->_resLocation}{$resourceName}' "
                     . "config file"
                 );
                 break;
-            case ConfigHandlerInterface::CONFIG_RESOURCE_NOT_FOUND:
+            case HandlerInterface::CONFIG_RESOURCE_NOT_FOUND:
                 throw new Exception\ConfigResourceNotFoundException(
                     "Error '{$this->_resLocation}{$resourceName}' config file "
                     . "not found"

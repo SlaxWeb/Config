@@ -1,9 +1,9 @@
 <?php
 /**
- * Config Test
+ * Container Test
  *
  * The Config class needs to communicate with the Config Handler class of the
- * ConfigHandlerInterface. This test ensures that all the calls are properly
+ * HandlerInterface. This test ensures that all the calls are properly
  * forwarded to the handler class, and that appropriate exceptions are being
  * thrown.
  *
@@ -16,22 +16,22 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the class constructor
      *
      * The Config class must receive a handler that implements the
-     * ConfigHandlerInterface as injection.
+     * HandlerInterface as injection.
      */
     public function testConstruct()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Container")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(null)
             ->getMock();
 
@@ -39,8 +39,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $config->__construct(new \stdClass, "some/path");
         } catch (\TypeError $e) {
             if (preg_match(
-                "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Config::__construct.*?"
-                    . "interface\sSlaxWeb\\\\Config\\\\ConfigHandlerInterface"
+                "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Container::__construct.*?"
+                    . "interface\sSlaxWeb\\\\Config\\\\HandlerInterface"
                     . ".*?stdClass.*$~",
                 $e->getMessage()
             ) == false) {
@@ -61,12 +61,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetExists()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Container")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(["exists"])
             ->getMock();
 
@@ -91,12 +91,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetGet()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Container")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(["get"])
             ->getMock();
 
@@ -118,12 +118,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetSet()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Container")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(["set"])
             ->getMock();
 
@@ -144,12 +144,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetUnset()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Container")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(["remove"])
             ->getMock();
 
@@ -183,12 +183,12 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Config")
+        $config = $this->getMockBuilder("\\SlaxWeb\\Config\\Container")
             ->disableOriginalConstructor()
             ->setMethods(null)
             ->getMock();
 
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpConfigHandler")
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(["load"])
             ->getMock();
 

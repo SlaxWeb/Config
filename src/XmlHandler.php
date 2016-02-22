@@ -1,8 +1,8 @@
 <?php
 /**
- * Yaml Config Handler
+ * XML Config Handler
  *
- * Handles loading of Yaml config files, and parsing their contents into the
+ * Handles loading of XML config files, and parsing their contents into the
  * config array.
  *
  * @package   SlaxWeb\Config
@@ -14,23 +14,25 @@
  */
 namespace SlaxWeb\Config;
 
-class YamlConfigHandler extends ConfigHandler
+class XmlHandler extends Handler
 {
     /**
-     * YamlConfigHandler constructor
+     * XML Library
      *
-     * Check that the Symfony\Component\Yaml\Yaml class exists, if it does not
-     * throw an exception.
+     * @var Desperado\XmlBundle\Model\XmlReader
+     */
+    protected $_xml = null;
+
+    /**
+     * XmlHandler constructor
+     *
+     * Set the Desperado\XmlBundle\Model\XmlReader to the protected property for use later.
      *
      * return void
      */
-    public function __construct()
+    public function __construct(\Desperado\XmlBundle\Model\XmlReader $xml)
     {
-        if (class_exists("\\Symfony\\Component\\Yaml\\Yaml") === false) {
-            throw new Exception\YamlParserMissingException(
-                "Please ensure that you have installed 3.0.x version of the package 'symfony/yaml'"
-            );
-        }
+        $this->_xml = $xml;
     }
 
     /**
@@ -53,9 +55,7 @@ class YamlConfigHandler extends ConfigHandler
         }
 
         $configContents = file_get_contents($config);
-        try {
-            $configuration = \Symfony\Component\Yaml\Yaml::parse($configContents);
-        } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+        if (($configuration = $this->_xml->processConvert($configContents)) === []) {
             return static::CONFIG_PARSE_ERROR;
         }
 

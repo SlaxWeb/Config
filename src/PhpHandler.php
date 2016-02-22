@@ -1,8 +1,8 @@
 <?php
 /**
- * XML Config Handler
+ * PHP Config Handler
  *
- * Handles loading of XML config files, and parsing their contents into the
+ * Handles loading of PHP config files, and parsing their contents into the
  * config array.
  *
  * @package   SlaxWeb\Config
@@ -14,27 +14,8 @@
  */
 namespace SlaxWeb\Config;
 
-class XmlConfigHandler extends ConfigHandler
+class PhpHandler extends Handler
 {
-    /**
-     * XML Library
-     *
-     * @var Desperado\XmlBundle\Model\XmlReader
-     */
-    protected $_xml = null;
-
-    /**
-     * XmlConfigHandler constructor
-     *
-     * Set the Desperado\XmlBundle\Model\XmlReader to the protected property for use later.
-     *
-     * return void
-     */
-    public function __construct(\Desperado\XmlBundle\Model\XmlReader $xml)
-    {
-        $this->_xml = $xml;
-    }
-
     /**
      * Load the Config File
      *
@@ -54,8 +35,9 @@ class XmlConfigHandler extends ConfigHandler
             return static::CONFIG_RESOURCE_NOT_FOUND;
         }
 
-        $configContents = file_get_contents($config);
-        if (($configuration = $this->_xml->processConvert($configContents)) === []) {
+        require_once $config;
+
+        if (isset($configuration) === false) {
             return static::CONFIG_PARSE_ERROR;
         }
 

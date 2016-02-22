@@ -14,7 +14,7 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
+class HandlerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the 'set' method
@@ -26,7 +26,7 @@ class ConfigHandlerTest extends \PHPUnit_Framework_TestCase
     public function testSet()
     {
         $handler =
-            $this->getMockForAbstractClass("\\SlaxWeb\\Config\\ConfigHandler");
+            $this->getMockForAbstractClass("\\SlaxWeb\\Config\\Handler");
 
         $this->assertTrue($handler->set("test.config.write", true));
         $this->assertFalse($handler->set(false, "error"));
