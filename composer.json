@@ -13,8 +13,9 @@
 		"php":	">=7.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.2",
-        "desperado/xml-bundle": "~0.1"
+        "codeception/codeception": "dev-master",
+        "desperado/xml-bundle": "~0.1",
+        "behat/gherkin": "~4.4"
     },
     "suggest": {
         "pimple/pimple": "Make use of available providers for Pimple version 3.0.x",
