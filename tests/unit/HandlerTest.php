@@ -16,6 +16,14 @@ namespace SlaxWeb\Config\Tests;
 
 class HandlerTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+    }
+
+    protected function tearDown()
+    {
+    }
+
     /**
      * Test the 'set' method
      *

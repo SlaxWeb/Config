@@ -1,8 +1,8 @@
 <?php
 /**
- * YAML Config Handler Test
+ * PHP Config Handler Test
  *
- * Test class for the YAML Config Handler class of the SlaxWeb\Config component.
+ * Test class for the PHP Config Handler class of the SlaxWeb\Config component.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -13,23 +13,16 @@
  */
 namespace SlaxWeb\Config\Tests;
 
-use SlaxWeb\Config\XmlHandler as Handler;
+use SlaxWeb\Config\PhpHandler as Handler;
 
-class XmlHandlerTest extends \PHPUnit_Framework_TestCase
+class PhpHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstructor()
+    protected function setUp()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
-            ->disableOriginalConstructor()
-            ->setMethods(null)
-            ->getMock();
+    }
 
-        $xmlParser =
-            $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
-            ->setMethods(["processConvert"])
-            ->getMock();
-
-        $handler->__construct($xmlParser);
+    protected function tearDown()
+    {
     }
 
     /**
@@ -47,37 +40,23 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
-            ->disableOriginalConstructor()
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
             ->setMethods(null)
             ->getMock();
 
-        $xmlParser =
-            $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
-            ->setMethods(["processConvert"])
-            ->getMock();
-
-        $xmlParser->expects($this->exactly(2))
-            ->method("processConvert")
-            ->will($this->onConsecutiveCalls(
-                ["test.config" => "test"],
-                []
-            ));
-        $handler->__construct($xmlParser);
-
         // file found, and parsed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/TestConfig/XmlConfig.xml"),
+            $handler->load(__DIR__ . "/../_support/TestConfig/PhpConfig.php"),
             Handler::CONFIG_LOADED
         );
         // file not found
         $this->assertEquals(
-            $handler->load(__DIR__ . "/TestConfig/NotFound.xml"),
+            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.php"),
             Handler::CONFIG_RESOURCE_NOT_FOUND
         );
         // file found, parsing failed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/TestConfig/NotXmlConfig.xml"),
+            $handler->load(__DIR__ . "/../_support/TestConfig/MissingPhpConfig.php"),
             Handler::CONFIG_PARSE_ERROR
         );
 

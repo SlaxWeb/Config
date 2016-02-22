@@ -6,4 +6,7 @@ matrix:
   allow_failures:
     - php: hhvm
 install:
+  - composer self-update
   - composer install
+script:
+  - php vendor/codeception/codeception/codecept run
