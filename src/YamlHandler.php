@@ -46,7 +46,7 @@ class YamlHandler extends Handler
      * @param bool $prependResourceName If the resource name should be prepended to each config key
      * @return int
      */
-    public function load(string $config, bool $prependResourceName): int
+    public function load(string $config, bool $prependResourceName = false): int
     {
         // check file exists
         if (file_exists($config) === false) {
