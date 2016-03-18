@@ -37,9 +37,10 @@ interface HandlerInterface
      * handler that extends this abstract class.
      *
      * @param string $config Path to the config resource
+     * @param bool $prependResourceName If the resource name should be prepended to each config key
      * @return int
      */
-    public function load(string $config): int;
+    public function load(string $config, bool $prependResourceName): int;
 
     /**
      * Set config item

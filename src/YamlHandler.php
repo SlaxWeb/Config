@@ -43,9 +43,10 @@ class YamlHandler extends Handler
      * parsed.
      *
      * @param string $config Path to the config resource
+     * @param bool $prependResourceName If the resource name should be prepended to each config key
      * @return int
      */
-    public function load(string $config): int
+    public function load(string $config, bool $prependResourceName): int
     {
         // check file exists
         if (file_exists($config) === false) {
@@ -58,7 +59,10 @@ class YamlHandler extends Handler
         } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
             return static::CONFIG_PARSE_ERROR;
         }
-
+        if ($prependResourceName === true) {
+            $filename = basename($config, ".yaml");
+            $configuration = $this->prependResourceName($configuration, $filename);
+        }
         $this->_configValues = array_merge($this->_configValues, $configuration);
         return static::CONFIG_LOADED;
     }
