@@ -34,7 +34,7 @@ abstract class Handler implements HandlerInterface
      * @param bool $prependResourceName If the resource name should be prepended to each config key
      * @return int
      */
-    abstract public function load(string $config, bool $prependResourceName): int;
+    abstract public function load(string $config, bool $prependResourceName = false): int;
 
     /**
      * Set config item
@@ -112,6 +112,10 @@ abstract class Handler implements HandlerInterface
      * @return array Loaded config with keys prepended by resource name
      */
     public function prependResourceName(array $loadedConfig, string $resName): array {
-        
+	$prefixedLoadedConf = [];
+	foreach ($loadedonfig as $key => $value) {
+		$prefixedLoadedConf[$resName.$key] = $value;
+	}
+	return $prefixedLoadedConf;
     }
 }

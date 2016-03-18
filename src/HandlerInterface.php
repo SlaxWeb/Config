@@ -40,7 +40,7 @@ interface HandlerInterface
      * @param bool $prependResourceName If the resource name should be prepended to each config key
      * @return int
      */
-    public function load(string $config, bool $prependResourceName): int;
+    public function load(string $config, bool $prependResourceName = false): int;
 
     /**
      * Set config item
