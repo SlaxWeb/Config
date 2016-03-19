@@ -26,7 +26,8 @@ class PhpHandler extends Handler
      * parsed.
      *
      * @param string $config Path to the config resource
-     * @param bool $prependResourceName If the resource name should be prepended to each config key
+     * @param bool $prependResourceName If the resource name should be prepended
+     *                                  to each config key
      * @return int
      */
     public function load(string $config, bool $prependResourceName = false): int
@@ -41,11 +42,19 @@ class PhpHandler extends Handler
         if (isset($configuration) === false) {
             return static::CONFIG_PARSE_ERROR;
         }
+
         if ($prependResourceName === true) {
             $filename = basename($config, ".php");
-            $configuration = $this->prependResourceName($configuration, $filename);
+            $configuration = $this->prependResourceName(
+                $configuration,
+                $filename
+            );
         }
-        $this->_configValues = array_merge($this->_configValues, $configuration);
+
+        $this->_configValues = array_merge(
+            $this->_configValues,
+            $configuration
+        );
         
         return static::CONFIG_LOADED;
     }
