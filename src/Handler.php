@@ -111,11 +111,14 @@ abstract class Handler implements HandlerInterface
      * @param string $resName Resource name, that is prepended to the keys
      * @return array Loaded config with keys prepended by resource name
      */
-    public function prependResourceName(array $loadedConfig, string $resName): array {
-	$prefixedLoadedConf = [];
-	foreach ($loadedonfig as $key => $value) {
-		$prefixedLoadedConf[$resName.$key] = $value;
-	}
-	return $prefixedLoadedConf;
+    public function prependResourceName(
+        array $loadedConfig,
+        string $resName
+    ): array {
+        $prefixedConf = [];
+        foreach ($loadedConfig as $key => $value) {
+            $prefixedConf["{$resName}.{$key}"] = $value;
+        }
+        return $prefixedConf;
     }
 }
