@@ -26,9 +26,10 @@ class XmlHandler extends Handler
     /**
      * XmlHandler constructor
      *
-     * Set the Desperado\XmlBundle\Model\XmlReader to the protected property for use later.
+     * Set the Desperado\XmlBundle\Model\XmlReader to the protected property for
+     * use later.
      *
-     * return void
+     * @return void
      */
     public function __construct(\Desperado\XmlBundle\Model\XmlReader $xml)
     {
@@ -45,9 +46,11 @@ class XmlHandler extends Handler
      * parsed.
      *
      * @param string $config Path to the config resource
+     * @param bool $prependResourceName If the resource name should be prepended
+     *                                  to each config key
      * @return int
      */
-    public function load(string $config): int
+    public function load(string $config, bool $prependResourceName = false): int
     {
         // check file exists
         if (file_exists($config) === false) {
@@ -55,11 +58,24 @@ class XmlHandler extends Handler
         }
 
         $configContents = file_get_contents($config);
-        if (($configuration = $this->_xml->processConvert($configContents)) === []) {
+        if (($configuration = $this->_xml->processConvert($configContents))
+            === []) {
             return static::CONFIG_PARSE_ERROR;
         }
 
-        $this->_configValues = array_merge($this->_configValues, $configuration);
+        if ($prependResourceName === true) {
+            $filename = basename($config, ".xml");
+            $configuration = $this->prependResourceName(
+                $configuration,
+                $filename
+            );
+        }
+
+        $this->_configValues = array_merge(
+            $this->_configValues,
+            $configuration
+        );
+
         return static::CONFIG_LOADED;
     }
 }

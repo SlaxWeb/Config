@@ -28,7 +28,8 @@ class YamlHandler extends Handler
     {
         if (class_exists("\\Symfony\\Component\\Yaml\\Yaml") === false) {
             throw new Exception\YamlParserMissingException(
-                "Please ensure that you have installed 3.0.x version of the package 'symfony/yaml'"
+                "Please ensure that you have installed 3.0.x version of the "
+                . "package 'symfony/yaml'"
             );
         }
     }
@@ -43,9 +44,11 @@ class YamlHandler extends Handler
      * parsed.
      *
      * @param string $config Path to the config resource
+     * @param bool $prependResourceName If the resource name should be prepended
+     *                                  to each config key
      * @return int
      */
-    public function load(string $config): int
+    public function load(string $config, bool $prependResourceName = false): int
     {
         // check file exists
         if (file_exists($config) === false) {
@@ -54,12 +57,26 @@ class YamlHandler extends Handler
 
         $configContents = file_get_contents($config);
         try {
-            $configuration = \Symfony\Component\Yaml\Yaml::parse($configContents);
+            $configuration = \Symfony\Component\Yaml\Yaml::parse(
+                $configContents
+            );
         } catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
             return static::CONFIG_PARSE_ERROR;
         }
 
-        $this->_configValues = array_merge($this->_configValues, $configuration);
+        if ($prependResourceName === true) {
+            $filename = basename($config, ".xml");
+            $configuration = $this->prependResourceName(
+                $configuration,
+                $filename
+            );
+        }
+
+        $this->_configValues = array_merge(
+            $this->_configValues,
+            $configuration
+        );
+
         return static::CONFIG_LOADED;
     }
 }

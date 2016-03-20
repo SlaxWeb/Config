@@ -41,23 +41,31 @@ class YamlHandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\YamlHandler")
-            ->setMethods(null)
+            ->setMethods(["prependResourceName"])
             ->getMock();
+
+        $handler->expects($this->once())
+            ->method("prependResourceName")
+            ->with(["test.config" => "test"])
+            ->willReturn(["test.config" => "test"]);
 
         // file found, and parsed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/YamlConfig.yaml"),
-            Handler::CONFIG_LOADED
+            Handler::CONFIG_LOADED,
+            $handler->load(
+                __DIR__ . "/../_support/TestConfig/YamlConfig.yaml",
+                true
+            )
         );
         // file not found
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.yaml"),
-            Handler::CONFIG_RESOURCE_NOT_FOUND
+            Handler::CONFIG_RESOURCE_NOT_FOUND,
+            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.yaml")
         );
         // file found, parsing failed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotYamlConfig.yaml"),
-            Handler::CONFIG_PARSE_ERROR
+            Handler::CONFIG_PARSE_ERROR,
+            $handler->load(__DIR__ . "/../_support/TestConfig/NotYamlConfig.yaml")
         );
 
         $this->assertEquals($handler->get("test.config"), "test");

@@ -57,8 +57,13 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
             ->disableOriginalConstructor()
-            ->setMethods(null)
+            ->setMethods(["prependResourceName"])
             ->getMock();
+
+        $handler->expects($this->once())
+            ->method("prependResourceName")
+            ->with(["test.config" => "test"])
+            ->willReturn(["test.config" => "test"]);
 
         $xmlParser =
             $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
@@ -75,18 +80,21 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
 
         // file found, and parsed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/XmlConfig.xml"),
-            Handler::CONFIG_LOADED
+            Handler::CONFIG_LOADED,
+            $handler->load(
+                __DIR__ . "/../_support/TestConfig/XmlConfig.xml",
+                true
+            )
         );
         // file not found
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.xml"),
-            Handler::CONFIG_RESOURCE_NOT_FOUND
+            Handler::CONFIG_RESOURCE_NOT_FOUND,
+            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.xml")
         );
         // file found, parsing failed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotXmlConfig.xml"),
-            Handler::CONFIG_PARSE_ERROR
+            Handler::CONFIG_PARSE_ERROR,
+            $handler->load(__DIR__ . "/../_support/TestConfig/NotXmlConfig.xml")
         );
 
         $this->assertEquals($handler->get("test.config"), "test");
