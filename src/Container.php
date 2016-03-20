@@ -129,7 +129,12 @@ class Container implements \ArrayAccess
         string $resourceName,
         bool $prependResourceName = false
     ) {
-        switch ($this->_handler->load($this->_resLocation . $resourceName)) {
+        switch (
+            $this->_handler->load(
+                $this->_resLocation . $resourceName,
+                $prependResourceName
+            )
+        ) {
             case HandlerInterface::CONFIG_PARSE_ERROR:
                 throw new Exception\ConfigParseException(
                     "Error parsing '{$this->_resLocation}{$resourceName}' "
