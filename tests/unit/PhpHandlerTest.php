@@ -41,25 +41,35 @@ class PhpHandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setMethods(null)
+            ->setMethods(["prependResourceName"])
             ->getMock();
+
+        $handler->expects($this->once())
+            ->method("prependResourceName")
+            ->with(["test.config" => "test"])
+            ->willReturn(["test.config" => "test"]);
 
         // file found, and parsed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/PhpConfig.php"),
-            Handler::CONFIG_LOADED
+            Handler::CONFIG_LOADED,
+            $handler->load(
+                __DIR__ . "/../_support/TestConfig/PhpConfig.php",
+                true
+            )
         );
         // file not found
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.php"),
-            Handler::CONFIG_RESOURCE_NOT_FOUND
+            Handler::CONFIG_RESOURCE_NOT_FOUND,
+            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.php")
         );
         // file found, parsing failed
         $this->assertEquals(
-            $handler->load(__DIR__ . "/../_support/TestConfig/MissingPhpConfig.php"),
-            Handler::CONFIG_PARSE_ERROR
+            Handler::CONFIG_PARSE_ERROR,
+            $handler->load(
+                __DIR__ . "/../_support/TestConfig/MissingPhpConfig.php"
+            )
         );
 
-        $this->assertEquals($handler->get("test.config"), "test");
+        $this->assertEquals("test", $handler->get("test.config"));
     }
 }
