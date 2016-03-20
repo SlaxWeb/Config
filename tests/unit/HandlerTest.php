@@ -33,8 +33,9 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSet()
     {
-        $handler =
-            $this->getMockForAbstractClass("\\SlaxWeb\\Config\\Handler");
+        $handler = $this->getMockForAbstractClass(
+            "\\SlaxWeb\\Config\\Handler"
+        );
 
         $this->assertTrue($handler->set("test.config.write", true));
         $this->assertFalse($handler->set(false, "error"));
@@ -87,5 +88,21 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
         $handler->set("test.config", "test");
         $this->assertTrue($handler->exists("test.config"));
         $this->assertFalse($handler->exists("test.config.missing"));
+    }
+
+    /**
+     * Test name prepend
+     *
+     * Ensure that the prepend method is correctly prepending the retrieved
+     * name.
+     *
+     * @depends testSet
+     */
+    public function testNamePrepend($handler)
+    {
+        $this->assertEquals(
+            ["test.config" => "test"],
+            $handler->prependResourceName(["config" => "test"], "test")
+        );
     }
 }

@@ -105,7 +105,8 @@ abstract class Handler implements HandlerInterface
     /**
      * Prepend resource name to keys
      *
-     * Prepends the resource name to the keys defined in it.
+     * Prepends the resource name to the keys defined in loaded configuration
+     * array.
      *
      * @param array $loadedConfig The loaded config
      * @param string $resName Resource name, that is prepended to the keys
