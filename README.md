@@ -1,6 +1,6 @@
 # Config
 
-[![Build Status](https://travis-ci.org/SlaxWeb/Config.svg)](https://travis-ci.org/SlaxWeb/Config)
+[![Build Status](https://travis-ci.org/SlaxWeb/Config.svg?branch=0.1.0)](https://travis-ci.org/SlaxWeb/Config)
 
 Config component of the SlaxWeb\Framework handles loading and parsing of
 configuration options from multiple sources. Currently only file based
@@ -23,7 +23,7 @@ just require the package in your *composer.json* file:
 ```js
 {
     "require": {
-        "slaxweb/config": "0.1.*@dev"
+        "slaxweb/config": "~0.1"
     }
 }
 ```
