@@ -121,10 +121,14 @@ class Container implements \ArrayAccess
      * '_configLocation' protected property, and pass it to the config handler.
      *
      * @param string $resourceName Name of the configuration resource
+     * @PARAM bool $prependResourceName If the resource name should be prepended
+     *                                  to each config key
      * @return void
      */
-    public function load(string $resourceName)
-    {
+    public function load(
+        string $resourceName,
+        bool $prependResourceName = false
+    ) {
         switch ($this->_handler->load($this->_resLocation . $resourceName)) {
             case HandlerInterface::CONFIG_PARSE_ERROR:
                 throw new Exception\ConfigParseException(
