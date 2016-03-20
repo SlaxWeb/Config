@@ -31,10 +31,14 @@ abstract class Handler implements HandlerInterface
      * handler that extends this abstract class.
      *
      * @param string $config Path to the config resource
-     * @param bool $prependResourceName If the resource name should be prepended to each config key
+     * @param bool $prependResourceName If the resource name should be prepended
+     *                                  to each config key
      * @return int
      */
-    abstract public function load(string $config, bool $prependResourceName = false): int;
+    abstract public function load(
+        string $config,
+        bool $prependResourceName = false
+    ): int;
 
     /**
      * Set config item
