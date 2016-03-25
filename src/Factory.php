@@ -30,14 +30,14 @@ class Factory
         $handler = null;
         switch (strtolower($handlerType)) {
             case Config::PHP_CONFIG_HANDLER:
-                $handler = new PhpHandler;
+                $handler = new PhpHandler($resLocation);
                 break;
             case Config::XML_CONFIG_HANDLER:
                 $xml = new \Desperado\XmlBundle\Model\XmlReader;
-                $handler = new XmlHandler($xml);
+                $handler = new XmlHandler($resLocation, $xml);
                 break;
             case Config::YAML_CONFIG_HANDLER:
-                $handler = new YamlHandler;
+                $handler = new YamlHandler($resLocation);
                 break;
             default:
                 throw new Exception\InvalidHandlerTypeException(
@@ -45,6 +45,6 @@ class Factory
                 );
         }
 
-        return new Container($handler, $resLocation);
+        return new Container($handler);
     }
 }
