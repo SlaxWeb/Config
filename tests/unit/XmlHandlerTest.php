@@ -9,7 +9,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.1
+ * @version   0.2
  */
 namespace SlaxWeb\Config\Tests;
 
@@ -27,17 +27,18 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testConstructor()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
-            ->disableOriginalConstructor()
-            ->setMethods(null)
-            ->getMock();
-
         $xmlParser =
             $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
             ->setMethods(["processConvert"])
             ->getMock();
 
-        $handler->__construct($xmlParser);
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
+            ->setConstructorArgs([
+                __DIR__ . "/../_support/TestConfig/",
+                $xmlParser
+            ])->setMethods(null)
+            ->getMock();
+
     }
 
     /**
@@ -55,16 +56,6 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoad()
     {
-        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
-            ->disableOriginalConstructor()
-            ->setMethods(["prependResourceName"])
-            ->getMock();
-
-        $handler->expects($this->once())
-            ->method("prependResourceName")
-            ->with(["test.config" => "test"], "XmlConfig")
-            ->willReturn(["test.config" => "test"]);
-
         $xmlParser =
             $this->getMockBuilder("\\Desperado\\XmlBundle\\Model\\XmlReader")
             ->setMethods(["processConvert"])
@@ -76,25 +67,33 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
                 ["test.config" => "test"],
                 []
             ));
-        $handler->__construct($xmlParser);
+
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
+            ->setConstructorArgs([
+                __DIR__ . "/../_support/TestConfig/",
+                $xmlParser
+            ])->setMethods(["prependResourceName"])
+            ->getMock();
+
+        $handler->expects($this->once())
+            ->method("prependResourceName")
+            ->with(["test.config" => "test"], "XmlConfig")
+            ->willReturn(["test.config" => "test"]);
 
         // file found, and parsed
         $this->assertEquals(
             Handler::CONFIG_LOADED,
-            $handler->load(
-                __DIR__ . "/../_support/TestConfig/XmlConfig.xml",
-                true
-            )
+            $handler->load("XmlConfig.xml", true)
         );
         // file not found
         $this->assertEquals(
             Handler::CONFIG_RESOURCE_NOT_FOUND,
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotFound.xml")
+            $handler->load("NotFound.xml")
         );
         // file found, parsing failed
         $this->assertEquals(
             Handler::CONFIG_PARSE_ERROR,
-            $handler->load(__DIR__ . "/../_support/TestConfig/NotXmlConfig.xml")
+            $handler->load("NotXmlConfig.xml")
         );
 
         $this->assertEquals($handler->get("test.config"), "test");

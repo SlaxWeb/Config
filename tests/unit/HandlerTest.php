@@ -10,7 +10,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.1
+ * @version   0.2
  */
 namespace SlaxWeb\Config\Tests;
 
@@ -33,9 +33,10 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSet()
     {
-        $handler = $this->getMockForAbstractClass(
-            "\\SlaxWeb\\Config\\Handler"
-        );
+        $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\Handler")
+            ->setConstructorArgs(["some/path"])
+            ->setMethods(["load"])
+            ->getMock();
 
         $this->assertTrue($handler->set("test.config.write", true));
         $this->assertFalse($handler->set(false, "error"));
