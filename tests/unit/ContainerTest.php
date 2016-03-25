@@ -12,7 +12,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.1
+ * @version   0.2
  */
 namespace SlaxWeb\Config\Tests;
 
@@ -40,11 +40,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
+            ->setConstructorArgs(["some/path"])
             ->setMethods(null)
             ->getMock();
 
         try {
-            $config->__construct(new \stdClass, "some/path");
+            $config->__construct(new \stdClass);
         } catch (\TypeError $e) {
             if (preg_match(
                 "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Container::__construct.*?"
@@ -58,7 +59,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        $config->__construct($handler, "some/path");
+        $config->__construct($handler);
     }
 
     /**
@@ -75,6 +76,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
+            ->setConstructorArgs(["some/path"])
             ->setMethods(["exists"])
             ->getMock();
 
@@ -85,7 +87,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
                 [$this->equalTo("missing")]
             )->will($this->onConsecutiveCalls(true, false));
 
-        $config->__construct($handler, "some/path");
+        $config->__construct($handler);
 
         $this->assertTrue(isset($config["existing"]));
         $this->assertFalse(isset($config["missing"]));
@@ -105,6 +107,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
+            ->setConstructorArgs(["some/path"])
             ->setMethods(["get"])
             ->getMock();
 
@@ -113,7 +116,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->with("test.config")
             ->willReturn("value");
 
-        $config->__construct($handler, "some/path");
+        $config->__construct($handler);
 
         $this->assertEquals($config["test.config"], "value");
     }
@@ -132,6 +135,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
+            ->setConstructorArgs(["some/path"])
             ->setMethods(["set"])
             ->getMock();
 
@@ -139,7 +143,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->method("set")
             ->with("test.config", "value");
 
-        $config->__construct($handler, "some/path");
+        $config->__construct($handler);
 
         $config["test.config"] = "value";
     }
@@ -158,6 +162,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
+            ->setConstructorArgs(["some/path"])
             ->setMethods(["remove"])
             ->getMock();
 
@@ -166,7 +171,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->withConsecutive(["test.config"], ["test.missing"])
             ->will($this->onConsecutiveCalls(true, false));
 
-        $config->__construct($handler, "some/path");
+        $config->__construct($handler);
 
         unset($config["test.config"]);
 
@@ -197,18 +202,19 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
+            ->setConstructorArgs(["some/path"])
             ->setMethods(["load"])
             ->getMock();
 
         $handler->expects($this->exactly(3))
             ->method("load")
             ->withConsecutive(
-                ["/some/path/config.ok.php"],
-                ["/some/path/config.parse.error.php"],
-                ["/some/path/config.missing.php"]
+                ["config.ok.php"],
+                ["config.parse.error.php"],
+                ["config.missing.php"]
             )->will($this->onConsecutiveCalls(100, 102, 101));
 
-        $config->__construct($handler, "/some/path");
+        $config->__construct($handler);
 
         // ok load
         $config->load("config.ok.php");
@@ -219,7 +225,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             $config->load("config.parse.error.php");
         } catch (\SlaxWeb\Config\Exception\ConfigParseException $e) {
             if ($e->getMessage() ===
-                "Error parsing '/some/path/config.parse.error.php' config file") {
+                "Error parsing 'config.parse.error.php' configuration "
+                . "resource") {
                 $isException = true;
             }
         }
@@ -235,7 +242,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             $config->load("config.missing.php");
         } catch (\SlaxWeb\Config\Exception\ConfigResourceNotFoundException $e) {
             if ($e->getMessage() ===
-                "Error '/some/path/config.missing.php' config file not found") {
+                "Error 'config.missing.php' configuration resource not found") {
                 $isException = true;
             }
         }

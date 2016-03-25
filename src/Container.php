@@ -122,14 +122,12 @@ class Container implements \ArrayAccess
         switch ($this->_handler->load($resourceName, $prependResourceName)) {
             case HandlerInterface::CONFIG_PARSE_ERROR:
                 throw new Exception\ConfigParseException(
-                    "Error parsing '{$this->_resLocation}{$resourceName}' "
-                    . "config file"
+                    "Error parsing '{$resourceName}' configuration resource"
                 );
                 break;
             case HandlerInterface::CONFIG_RESOURCE_NOT_FOUND:
                 throw new Exception\ConfigResourceNotFoundException(
-                    "Error '{$this->_resLocation}{$resourceName}' config file "
-                    . "not found"
+                    "Error '{$resourceName}' configuration resource not found"
                 );
                 break;
         }
