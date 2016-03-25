@@ -22,10 +22,10 @@ class YamlHandler extends Handler
      * Check that the Symfony\Component\Yaml\Yaml class exists, if it does not
      * throw an exception.
      *
-     * @param string $resDir Configuration resource location
+     * @param array $resDir Configuration resource locations
      * @return void
      */
-    public function __construct(string $resDir)
+    public function __construct(array $resDir)
     {
         parent::__construct($resDir);
 
@@ -53,11 +53,8 @@ class YamlHandler extends Handler
      */
     public function load(string $config, bool $prependResourceName = false): int
     {
-        // combine resource name with resource location
-        $config = $this->_resDir . $config;
-
-        // check file exists
-        if (file_exists($config) === false) {
+        // obtain absolute path to configuration resource
+        if (($config = $this->_getAbsPath($config)) === "") {
             return static::CONFIG_RESOURCE_NOT_FOUND;
         }
 

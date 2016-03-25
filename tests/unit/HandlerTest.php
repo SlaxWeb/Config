@@ -34,7 +34,7 @@ class HandlerTest extends \PHPUnit_Framework_TestCase
     public function testSet()
     {
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\Handler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(["load"])
             ->getMock();
 

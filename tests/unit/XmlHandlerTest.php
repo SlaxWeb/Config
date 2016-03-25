@@ -34,7 +34,7 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
             ->setConstructorArgs([
-                __DIR__ . "/../_support/TestConfig/",
+                [__DIR__ . "/../_support/TestConfig/"],
                 $xmlParser
             ])->setMethods(null)
             ->getMock();
@@ -70,7 +70,7 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\XmlHandler")
             ->setConstructorArgs([
-                __DIR__ . "/../_support/TestConfig/",
+                [__DIR__ . "/../_support/TestConfig/"],
                 $xmlParser
             ])->setMethods(["prependResourceName"])
             ->getMock();
