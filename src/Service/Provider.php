@@ -30,22 +30,28 @@ class Provider implements \Pimple\ServiceProviderInterface
     {
         $container["config.service"] = function (Container $cont) {
             return new \SlaxWeb\Config\Container(
-                $cont["configHandler.service"],
-                $cont["configResourceLocation"]
+                $cont["configHandler.service"]
             );
         };
 
         $container["configHandler.service"] = function (Container $cont) {
             switch ($cont["configHandler"]) {
                 case \SlaxWeb\Config\Container::PHP_CONFIG_HANDLER:
-                    return new \SlaxWeb\Config\PhpHandler;
+                    return new \SlaxWeb\Config\PhpHandler(
+                        $cont["configResourceLocation"]
+                    );
                     break;
                 case \SlaxWeb\Config\Container::XML_CONFIG_HANDLER:
-                    $xml = new \Desperado\XmlBundle\Model\XmlReader;
-                    return new \SlaxWeb\Config\XmlHandler($xml);
+                    return new \SlaxWeb\Config\XmlHandler(
+
+                        $cont["configResourceLocation"]
+                        new \Desperado\XmlBundle\Model\XmlReader
+                    );
                     break;
                 case \SlaxWeb\Config\Container::YAML_CONFIG_HANDLER:
-                    return new \SlaxWeb\Config\YamlHandler;
+                    return new \SlaxWeb\Config\YamlHandler(
+                        $cont["configResourceLocation"]
+                    );
                     break;
                 default:
                     throw new \SlaxWeb\Config\Exception\InvalidHandlerTypeException(
