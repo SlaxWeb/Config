@@ -41,7 +41,7 @@ class PhpHandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs([__DIR__ . "/../_support/TestConfig/"])
+            ->setConstructorArgs([[__DIR__ . "/../_support/TestConfig/"]])
             ->setMethods(["prependResourceName"])
             ->getMock();
 

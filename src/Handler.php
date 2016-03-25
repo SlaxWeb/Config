@@ -148,4 +148,29 @@ abstract class Handler implements HandlerInterface
         }
         return $prefixedConf;
     }
+
+    /**
+     * Get resource absolute path
+     *
+     * Iterate the Resource Location array and return the absolute path of the
+     * resource. Return empty string if resource does not exist in any of the
+     * directories.
+     *
+     * @param string $resName Name of the resource
+     * @return string
+     */
+    protected function _getAbsPath(string $resName): string
+    {
+        foreach ($this->_resDir as $dir) {
+            $absPath = rtrim($dir, DIRECTORY_SEPARATOR)
+                . DIRECTORY_SEPARATOR
+                . $resName;
+
+            if (file_exists($absPath)) {
+                return $absPath;
+            }
+        }
+
+        return "";
+    }
 }

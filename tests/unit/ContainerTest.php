@@ -40,7 +40,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(null)
             ->getMock();
 
@@ -76,7 +76,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(["exists"])
             ->getMock();
 
@@ -107,7 +107,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(["get"])
             ->getMock();
 
@@ -135,7 +135,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(["set"])
             ->getMock();
 
@@ -162,7 +162,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(["remove"])
             ->getMock();
 
@@ -202,7 +202,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\PhpHandler")
-            ->setConstructorArgs(["some/path"])
+            ->setConstructorArgs([["some/path"]])
             ->setMethods(["load"])
             ->getMock();
 

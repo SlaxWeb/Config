@@ -41,7 +41,7 @@ class YamlHandlerTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         $handler = $this->getMockBuilder("\\SlaxWeb\\Config\\YamlHandler")
-            ->setConstructorArgs([__DIR__ . "/../_support/TestConfig/"])
+            ->setConstructorArgs([[__DIR__ . "/../_support/TestConfig/"]])
             ->setMethods(["prependResourceName"])
             ->getMock();
 
