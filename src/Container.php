@@ -10,7 +10,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.1
+ * @version   0.2
  */
 namespace SlaxWeb\Config;
 
@@ -111,7 +111,7 @@ class Container implements \ArrayAccess
      * '_configLocation' protected property, and pass it to the config handler.
      *
      * @param string $resourceName Name of the configuration resource
-     * @PARAM bool $prependResourceName If the resource name should be prepended
+     * @param bool $prependResourceName If the resource name should be prepended
      *                                  to each config key
      * @return void
      */
