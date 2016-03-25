@@ -31,13 +31,6 @@ class Container implements \ArrayAccess
     protected $_handler = null;
 
     /**
-     * Config resource location
-     *
-     * @var string
-     */
-    protected $_resLocation = "";
-
-    /**
      * Class constructor
      *
      * Set the injected config handler to the internal protected property.
@@ -47,12 +40,9 @@ class Container implements \ArrayAccess
      * @param string $resLocation Configuration resource location
      * @return void
      */
-    public function __construct(
-        HandlerInterface $handler,
-        string $resLocation
-    ) {
+    public function __construct(HandlerInterface $handler)
+    {
         $this->_handler = $handler;
-        $this->_resLocation = rtrim($resLocation, "/") . "/";
     }
 
     /**
@@ -129,12 +119,7 @@ class Container implements \ArrayAccess
         string $resourceName,
         bool $prependResourceName = false
     ) {
-        switch (
-            $this->_handler->load(
-                $this->_resLocation . $resourceName,
-                $prependResourceName
-            )
-        ) {
+        switch ($this->_handler->load($resourceName, $prependResourceName)) {
             case HandlerInterface::CONFIG_PARSE_ERROR:
                 throw new Exception\ConfigParseException(
                     "Error parsing '{$this->_resLocation}{$resourceName}' "

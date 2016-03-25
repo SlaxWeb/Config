@@ -29,10 +29,13 @@ class XmlHandler extends Handler
      * Set the Desperado\XmlBundle\Model\XmlReader to the protected property for
      * use later.
      *
+     * @param string $resDir Configuration resource location
+     * @param \Desperado\XmlBundle\Model\XmlReader $xml XML reader object
      * @return void
      */
-    public function __construct(\Desperado\XmlBundle\Model\XmlReader $xml)
+    public function __construct(string $resDir, \Desperado\XmlBundle\Model\XmlReader $xml)
     {
+        parent::__construct($resDir);
         $this->_xml = $xml;
     }
 
@@ -52,6 +55,9 @@ class XmlHandler extends Handler
      */
     public function load(string $config, bool $prependResourceName = false): int
     {
+        // combine resource name with resource location
+        $config = $this->_resDir . $config;
+
         // check file exists
         if (file_exists($config) === false) {
             return static::CONFIG_RESOURCE_NOT_FOUND;

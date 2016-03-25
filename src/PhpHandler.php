@@ -32,6 +32,9 @@ class PhpHandler extends Handler
      */
     public function load(string $config, bool $prependResourceName = false): int
     {
+        // combine resource name with resource location
+        $config = $this->_resDir . $config;
+
         // check file exists
         if (file_exists($config) === false) {
             return static::CONFIG_RESOURCE_NOT_FOUND;
