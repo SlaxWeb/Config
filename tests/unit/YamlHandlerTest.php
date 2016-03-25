@@ -46,7 +46,7 @@ class YamlHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler->expects($this->once())
             ->method("prependResourceName")
-            ->with(["test.config" => "test"])
+            ->with(["test.config" => "test"], "YamlConfig")
             ->willReturn(["test.config" => "test"]);
 
         // file found, and parsed

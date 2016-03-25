@@ -46,7 +46,7 @@ class PhpHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler->expects($this->once())
             ->method("prependResourceName")
-            ->with(["test.config" => "test"])
+            ->with(["test.config" => "test"], "PhpConfig")
             ->willReturn(["test.config" => "test"]);
 
         // file found, and parsed
