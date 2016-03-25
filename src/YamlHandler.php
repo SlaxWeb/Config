@@ -65,7 +65,7 @@ class YamlHandler extends Handler
         }
 
         if ($prependResourceName === true) {
-            $filename = basename($config, ".xml");
+            $filename = preg_replace("~\.ya?ml$~", "", basename($config));
             $configuration = $this->prependResourceName(
                 $configuration,
                 $filename
