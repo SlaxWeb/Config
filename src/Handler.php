@@ -11,7 +11,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.1
+ * @version   0.2
  */
 namespace SlaxWeb\Config;
 
@@ -42,7 +42,7 @@ abstract class Handler implements HandlerInterface
      */
     public function __construct(string $resDir)
     {
-        $this->_resDir = rtrim($resLocation, DIRECTORY_SEPARATOR)
+        $this->_resDir = rtrim($resDir, DIRECTORY_SEPARATOR)
             . DIRECTORY_SEPARATOR;
     }
 
