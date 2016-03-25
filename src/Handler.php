@@ -25,6 +25,28 @@ abstract class Handler implements HandlerInterface
     protected $_configValues = [];
 
     /**
+     * Config resource location
+     *
+     * @var string
+     */
+    protected $_resDir = "";
+
+    /**
+     * Handler constructor
+     *
+     * Stores the resource location to the local protected property for later
+     * use.
+     *
+     * @param string $resDir Configuration resource location
+     * @return void
+     */
+    public function __construct(string $resDir)
+    {
+        $this->_resDir = rtrim($resLocation, DIRECTORY_SEPARATOR)
+            . DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * Load the config
      *
      * Require the config resource, or load its contents, depending on type of
