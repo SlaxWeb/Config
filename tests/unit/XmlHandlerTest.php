@@ -62,7 +62,7 @@ class XmlHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler->expects($this->once())
             ->method("prependResourceName")
-            ->with(["test.config" => "test"])
+            ->with(["test.config" => "test"], "XmlConfig")
             ->willReturn(["test.config" => "test"]);
 
         $xmlParser =
