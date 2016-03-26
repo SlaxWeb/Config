@@ -4,6 +4,10 @@ Changes between versions.
 
 ## Current changes
 
+* pass resource location to handler, instead of container
+* multiple locations can be added as resource location
+    * resource location parameter now has to be an array of strings
+
 ## v0.1
 
 ### v0.1.2
