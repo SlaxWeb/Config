@@ -22,22 +22,22 @@ class Factory
      * Instantiate the configuration handler, pass it to the Config class when
      * instantiating it, and return its object.
      * @param string $handlerClass Type of handler to use
-     * @param string $resLocation Location of configuration resource
+     * @param array $resLocations Locations of configuration resource
      * @return \SlaxWeb\Config\Container
      */
-    public static function init(string $handlerType, string $resLocation): Container
+    public static function init(string $handlerType, array $resLocations): Container
     {
         $handler = null;
         switch (strtolower($handlerType)) {
             case Config::PHP_CONFIG_HANDLER:
-                $handler = new PhpHandler($resLocation);
+                $handler = new PhpHandler($resLocations);
                 break;
             case Config::XML_CONFIG_HANDLER:
                 $xml = new \Desperado\XmlBundle\Model\XmlReader;
-                $handler = new XmlHandler($resLocation, $xml);
+                $handler = new XmlHandler($resLocations, $xml);
                 break;
             case Config::YAML_CONFIG_HANDLER:
-                $handler = new YamlHandler($resLocation);
+                $handler = new YamlHandler($resLocations);
                 break;
             default:
                 throw new Exception\InvalidHandlerTypeException(

@@ -38,18 +38,18 @@ class Provider implements \Pimple\ServiceProviderInterface
             switch ($cont["configHandler"]) {
                 case \SlaxWeb\Config\Container::PHP_CONFIG_HANDLER:
                     return new \SlaxWeb\Config\PhpHandler(
-                        $cont["configResourceLocation"]
+                        [$cont["configResourceLocation"]]
                     );
                     break;
                 case \SlaxWeb\Config\Container::XML_CONFIG_HANDLER:
                     return new \SlaxWeb\Config\XmlHandler(
-                        $cont["configResourceLocation"],
+                        [$cont["configResourceLocation"]],
                         new \Desperado\XmlBundle\Model\XmlReader
                     );
                     break;
                 case \SlaxWeb\Config\Container::YAML_CONFIG_HANDLER:
                     return new \SlaxWeb\Config\YamlHandler(
-                        $cont["configResourceLocation"]
+                        [$cont["configResourceLocation"]]
                     );
                     break;
                 default:
