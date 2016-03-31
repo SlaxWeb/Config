@@ -10,7 +10,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.1
+ * @version   0.2
  */
 namespace SlaxWeb\Config\Service;
 
@@ -43,8 +43,7 @@ class Provider implements \Pimple\ServiceProviderInterface
                     break;
                 case \SlaxWeb\Config\Container::XML_CONFIG_HANDLER:
                     return new \SlaxWeb\Config\XmlHandler(
-
-                        $cont["configResourceLocation"]
+                        $cont["configResourceLocation"],
                         new \Desperado\XmlBundle\Model\XmlReader
                     );
                     break;
