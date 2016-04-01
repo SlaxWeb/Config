@@ -37,7 +37,7 @@ class PhpHandler extends Handler
             return static::CONFIG_RESOURCE_NOT_FOUND;
         }
 
-        require_once $config;
+        require $config;
 
         if (isset($configuration) === false) {
             return static::CONFIG_PARSE_ERROR;
