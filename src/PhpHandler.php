@@ -51,7 +51,7 @@ class PhpHandler extends Handler
             );
         }
 
-        $this->_configValues = array_merge(
+        $this->_configValues = array_merge_recursive(
             $this->_configValues,
             $configuration
         );
