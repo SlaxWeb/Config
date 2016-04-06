@@ -150,6 +150,19 @@ abstract class Handler implements HandlerInterface
     }
 
     /**
+     * Add Resource Location
+     *
+     * Add an additional configuration resource location.
+     *
+     * @param string $dir Additional resource location
+     * @return void
+     */
+    public function addResDir(string $dir)
+    {
+        $this->_resDir = array_merge($this->_resDir, $dir);
+    }
+
+    /**
      * Get resource absolute path
      *
      * Iterate the Resource Location array and return the absolute path of the

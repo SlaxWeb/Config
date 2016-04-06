@@ -132,4 +132,17 @@ class Container implements \ArrayAccess
                 break;
         }
     }
+
+    /**
+     * Add Resource Location
+     *
+     * Add an additional configuration resource location.
+     *
+     * @param string $dir Additional resource location
+     * @return void
+     */
+    public function addResDir(string $dir)
+    {
+        $this->_handler->addResDir($dir);
+    }
 }
