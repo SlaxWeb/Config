@@ -159,7 +159,20 @@ abstract class Handler implements HandlerInterface
      */
     public function addResDir(string $dir)
     {
-        $this->_resDir = array_merge($this->_resDir, $dir);
+        $this->addResDirs([$dir]);
+    }
+
+    /**
+     * Add Resource Locations
+     *
+     * Add additional configuration resource locations.
+     *
+     * @param array $dirs Additional resource locations
+     * @return void
+     */
+    public function addResDirs(array $dirs)
+    {
+        $this->_resDir = array_merge($this->_resDir, $dirs);
     }
 
     /**
