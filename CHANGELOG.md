@@ -7,6 +7,7 @@ Changes between versions.
 * pass resource location to handler, instead of container
 * multiple locations can be added as resource location
     * resource location parameter now has to be an array of strings
+* add resource location at runtime method
 
 ## v0.1
 
