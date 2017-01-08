@@ -15,8 +15,21 @@
  */
 namespace SlaxWeb\Config;
 
-abstract class Handler implements HandlerInterface
+abstract class Handler
 {
+    /**
+     * Config was loaded and parsed successfuly
+     */
+    const CONFIG_LOADED = 100;
+    /**
+     * Config resource could not be found
+     */
+    const CONFIG_RESOURCE_NOT_FOUND = 101;
+    /**
+     * Config resource was found, but an error occured while parsing
+     */
+    const CONFIG_PARSE_ERROR = 102;
+
     /**
      * Configuration values
      *

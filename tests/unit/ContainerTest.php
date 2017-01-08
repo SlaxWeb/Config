@@ -2,10 +2,9 @@
 /**
  * Container Test
  *
- * The Config class needs to communicate with the Config Handler class of the
- * HandlerInterface. This test ensures that all the calls are properly
- * forwarded to the handler class, and that appropriate exceptions are being
- * thrown.
+ * The Config class needs to communicate with the Config Handler class. This test
+ * ensures that all the calls are properly forwarded to the handler class, and that
+ * appropriate exceptions are being thrown.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -29,8 +28,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     /**
      * Test the class constructor
      *
-     * The Config class must receive a handler that implements the
-     * HandlerInterface as injection.
+     * The Config class must receive a handler that extends the Handler class as
+     * injection.
      */
     public function testConstruct()
     {
@@ -49,7 +48,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         } catch (\TypeError $e) {
             if (preg_match(
                 "~^Arg.*?1.*?SlaxWeb\\\\Config\\\\Container::__construct.*?"
-                    . "interface\sSlaxWeb\\\\Config\\\\HandlerInterface"
+                    . "instance of\sSlaxWeb\\\\Config\\\\Handler"
                     . ".*?stdClass.*$~",
                 $e->getMessage()
             ) == false) {

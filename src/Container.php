@@ -2,8 +2,8 @@
 /**
  * Config Class
  *
- * The Container class needs to communicate with the Config Handler class of the
- * HandlerInterface, and raise appropriate Exceptions on errors.
+ * The Container class needs to communicate with the Config Handler, and raise appropriate
+ * Exceptions on errors.
  *
  * @package   SlaxWeb\Config
  * @author    Tomaz Lovrec <tomaz.lovrec@gmail.com>
@@ -26,7 +26,7 @@ class Container implements \ArrayAccess
     /**
      * Config Handler
      *
-     * @var \SlaxWeb\HandlerInterface
+     * @var \SlaxWeb\Handler
      */
     protected $_handler = null;
 
@@ -35,12 +35,11 @@ class Container implements \ArrayAccess
      *
      * Set the injected config handler to the internal protected property.
      *
-     * @param \SlaxWeb\ConfigurationHandlerInterface $handler Configuration
-     *                                                        handler
+     * @param \SlaxWeb\ConfigurationHandler $handler Configuration handler
      * @param string $resLocation Configuration resource location
      * @return void
      */
-    public function __construct(HandlerInterface $handler)
+    public function __construct(Handler $handler)
     {
         $this->_handler = $handler;
     }
@@ -120,12 +119,12 @@ class Container implements \ArrayAccess
         bool $prependResourceName = false
     ) {
         switch ($this->_handler->load($resourceName, $prependResourceName)) {
-            case HandlerInterface::CONFIG_PARSE_ERROR:
+            case Handler::CONFIG_PARSE_ERROR:
                 throw new Exception\ConfigParseException(
                     "Error parsing '{$resourceName}' configuration resource"
                 );
                 break;
-            case HandlerInterface::CONFIG_RESOURCE_NOT_FOUND:
+            case Handler::CONFIG_RESOURCE_NOT_FOUND:
                 throw new Exception\ConfigResourceNotFoundException(
                     "Error '{$resourceName}' configuration resource not found"
                 );
