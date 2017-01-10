@@ -2,7 +2,6 @@
     "name": "slaxweb/config",
     "description": "Config component for the SlaxWeb Framework",
     "license": "MIT",
-    "version": "0.1.2",
     "authors": [
         {
             "name": "Tomaz Lovrec",
@@ -29,7 +28,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.2.x-dev"
+            "dev-master": "0.3.x-dev"
         }
     }
 }
