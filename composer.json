@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-		"php":	">=7.0.0"
+        "php":  ">=7.0.0"
     },
     "require-dev": {
         "codeception/codeception": "dev-master",
@@ -22,11 +22,11 @@
         "symfony/yaml": "If you would like to use YAML config files, you have to install symfony/yaml package, version 3.0.x",
         "desperado/xml-bundle": "If you would like to use XML config files, you have to install desperado/xml-bundle package, version 0.1.x"
     },
-	"autoload":	{
-		"psr-4": {
-			"SlaxWeb\\Config\\": "src/"
-		}
-	},
+    "autoload": {
+        "psr-4": {
+            "SlaxWeb\\Config\\": "src/"
+        }
+    },
     "extra": {
         "branch-alias": {
             "dev-develop": "0.2.x-dev"
