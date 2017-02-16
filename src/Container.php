@@ -26,7 +26,7 @@ class Container implements \ArrayAccess
     /**
      * Config Handler
      *
-     * @var \SlaxWeb\Handler
+     * @var \SlaxWeb\Config\Handler
      */
     protected $_handler = null;
 
@@ -35,9 +35,7 @@ class Container implements \ArrayAccess
      *
      * Set the injected config handler to the internal protected property.
      *
-     * @param \SlaxWeb\ConfigurationHandler $handler Configuration handler
-     * @param string $resLocation Configuration resource location
-     * @return void
+     * @param \SlaxWeb\Config\Handler $handler Configuration handler
      */
     public function __construct(Handler $handler)
     {
@@ -123,12 +121,10 @@ class Container implements \ArrayAccess
                 throw new Exception\ConfigParseException(
                     "Error parsing '{$resourceName}' configuration resource"
                 );
-                break;
             case Handler::CONFIG_RESOURCE_NOT_FOUND:
                 throw new Exception\ConfigResourceNotFoundException(
                     "Error '{$resourceName}' configuration resource not found"
                 );
-                break;
         }
     }
 
