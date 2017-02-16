@@ -19,7 +19,7 @@ class XmlHandler extends Handler
     /**
      * XML Library
      *
-     * @var Desperado\XmlBundle\Model\XmlReader
+     * @var \Desperado\XmlBundle\Model\XmlReader
      */
     protected $_xml = null;
 
@@ -31,7 +31,6 @@ class XmlHandler extends Handler
      *
      * @param array $resDir Configuration resource locations
      * @param \Desperado\XmlBundle\Model\XmlReader $xml XML reader object
-     * @return void
      */
     public function __construct(array $resDir, \Desperado\XmlBundle\Model\XmlReader $xml)
     {

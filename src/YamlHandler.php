@@ -23,7 +23,6 @@ class YamlHandler extends Handler
      * throw an exception.
      *
      * @param array $resDir Configuration resource locations
-     * @return void
      */
     public function __construct(array $resDir)
     {

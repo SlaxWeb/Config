@@ -51,7 +51,6 @@ abstract class Handler
      * use.
      *
      * @param array $resDir Configuration resource locations
-     * @return void
      */
     public function __construct(array $resDir)
     {
@@ -67,7 +66,6 @@ abstract class Handler
      * @param string $config Name of the config resource
      * @param bool $prependResourceName If the resource name should be prepended
      *                                  to each config key
-     * @param bool $absPath Is the full path included in '$config'
      * @return int
      */
     abstract public function load(
