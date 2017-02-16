@@ -21,13 +21,12 @@ class Factory
      *
      * Instantiate the configuration handler, pass it to the Config class when
      * instantiating it, and return its object.
-     * @param string $handlerClass Type of handler to use
+     * @param string $handlerType Type of handler to use
      * @param array $resLocations Locations of configuration resource
      * @return \SlaxWeb\Config\Container
      */
     public static function init(string $handlerType, array $resLocations): Container
     {
-        $handler = null;
         switch (strtolower($handlerType)) {
             case Config::PHP_CONFIG_HANDLER:
                 $handler = new PhpHandler($resLocations);
