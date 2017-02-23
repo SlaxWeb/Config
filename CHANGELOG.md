@@ -4,6 +4,9 @@ Changes between versions.
 
 ## Current changes
 
+* remove service provider (moved to main bootstrap component)
+* remove unneeded exception (moved to main bootstrap component)
+
 ## v0.2
 
 ### v0.2.1
