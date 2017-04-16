@@ -6,6 +6,7 @@ Changes between versions.
 
 * remove service provider (moved to main bootstrap component)
 * remove unneeded exception (moved to main bootstrap component)
+* add JSON configuration handler
 
 ## v0.2
 
