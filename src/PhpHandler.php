@@ -55,7 +55,7 @@ class PhpHandler extends Handler
             $this->_configValues,
             $configuration
         );
-        
+
         return static::CONFIG_LOADED;
     }
 }
