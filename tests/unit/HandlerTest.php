@@ -10,7 +10,7 @@
  * @copyright 2016 (c) Tomaz Lovrec
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://github.com/slaxweb/
- * @version   0.2
+ * @version   0.3
  */
 namespace SlaxWeb\Config\Tests;
 
